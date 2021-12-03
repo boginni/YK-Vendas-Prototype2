@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1061714529505",
+    "project_id": "loja-virtual-cf532",
+    "storage_bucket": "loja-virtual-cf532.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1061714529505:android:eb2127c0299f06a3117ba0",
+        "android_client_info": {
+          "package_name": "net.boginni.loja_virtual"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1061714529505-9j15ut96q39f2u4v8a51guc3tjt136e4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCig12-f7GFSqkQZP1YK6ov2lhDI-gN-Aw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1061714529505-9j15ut96q39f2u4v8a51guc3tjt136e4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
