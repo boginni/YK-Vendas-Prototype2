@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:loja_virtual/models/page_manager.dart';
+import 'package:loja_virtual/screens/Novo%20Cliente/novo_cliente.dart';
 import 'package:loja_virtual/screens/login/login_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -12,8 +13,6 @@ import '../../common/custom_drawer/custom_drawer.dart';
 class BaseScreen extends StatelessWidget{
 
   final PageController pageController = PageController();
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +42,7 @@ class BaseScreen extends StatelessWidget{
               title: const Text('Home4'),
             ),
           ),
-
+          NovoCliente(),
 
 
         ],

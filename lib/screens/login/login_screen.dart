@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loja_virtual/common/custom_drawer/custom_drawer.dart';
 
 class LoginScreen extends StatelessWidget{
   @override
@@ -11,6 +12,7 @@ class LoginScreen extends StatelessWidget{
         centerTitle:  true,
 
       ),
+      drawer: CustomDrawer(),
       body: Center(
         child: Card(
           margin: const EdgeInsets.symmetric(horizontal: 16),
