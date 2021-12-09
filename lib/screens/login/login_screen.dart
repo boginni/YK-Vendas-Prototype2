@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loja_virtual/common/custom_drawer/custom_drawer.dart';
 import 'package:loja_virtual/helpers/validators.dart';
 import 'package:loja_virtual/models/user_app.dart';
 import 'package:loja_virtual/models/user_manager.dart';
@@ -17,6 +18,7 @@ class LoginScreen extends StatelessWidget {
     return ScaffoldMessenger(
       key: scaffoldMessengerKey,
       child: Scaffold(
+        drawer: CustomDrawer(),
         appBar: AppBar(
           title: const Text('Entrar'),
           centerTitle: true,
