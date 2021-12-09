@@ -1,24 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:loja_virtual/common/FormField/form_field.dart';
 
-class FormText extends StatelessWidget {
 
-  FormText({required this.title});
+import 'package:flutter/cupertino.dart';
+import 'package:loja_virtual/common/FormField/form_field.dart';
 
-  final String title;
+import 'form_field.dart';
 
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Text(
-          title,
-          style: TextStyle(fontSize: 16),
-        ),
-        TextFormField(
-          autocorrect: false,
-        ),
-      ],
-    );
-  }
+class FormText extends FormCampo {
+  FormText({required title}) : super(title: title);
 }
+

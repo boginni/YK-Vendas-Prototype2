@@ -1,7 +1,7 @@
-import 'package:app_loja01/helpers/validators.dart';
-import 'package:app_loja01/models/user_app.dart';
-import 'package:app_loja01/models/user_manager.dart';
 import 'package:flutter/material.dart';
+import 'package:loja_virtual/helpers/validators.dart';
+import 'package:loja_virtual/models/user_app.dart';
+import 'package:loja_virtual/models/user_manager.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/src/provider.dart';
 

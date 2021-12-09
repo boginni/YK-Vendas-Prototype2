@@ -1,8 +1,8 @@
-import 'package:app_loja01/helpers/firebase_errors.dart';
-import 'package:app_loja01/models/user_app.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:loja_virtual/helpers/firebase_errors.dart';
+import 'package:loja_virtual/models/user_app.dart';
 
 class UserManager extends ChangeNotifier {
   final FirebaseAuth auth = FirebaseAuth.instance;
