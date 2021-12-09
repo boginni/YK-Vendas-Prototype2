@@ -44,7 +44,7 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    const Color primaryColor = Colors.red;
+    const Color primaryColor = Colors.blueAccent;
 
     return MaterialApp(
       title: 'boginni store',

@@ -75,7 +75,7 @@ class LoginScreen extends StatelessWidget {
                         child: ElevatedButton(
                           onPressed:UserManager.loading?null:() {
                             if (formKey.currentState!.validate()) {
-                             UserManager.signIn(
+                              UserManager.signIn(
                                   userApp: UserApp(
                                       email: emailController.text,
                                       password: passController.text),
@@ -89,15 +89,16 @@ class LoginScreen extends StatelessWidget {
                           },
                           style: ElevatedButton.styleFrom(
                               primary: Theme.of(context).primaryColor
-                              
-                              ),
-                              
+
+                          ),
+
                           child: const Text(
                             "Entrar",
                             style: TextStyle(fontSize: 18),
                           ),
                         ),
                       ),
+
                     ],
                   );
                 }

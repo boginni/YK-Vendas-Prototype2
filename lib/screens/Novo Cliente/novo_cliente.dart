@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:loja_virtual/common/FormField/form_dropdown.dart';
 import 'package:loja_virtual/common/FormField/form_text.dart';
 import 'package:loja_virtual/common/custom_drawer/custom_drawer.dart';
 
@@ -18,6 +19,8 @@ class NovoCliente extends StatelessWidget {
           child: ListView(
             padding: const EdgeInsets.all(16),
             children: [
+              FormDropDown(title: 'Tipo de cliente'), // Caixa de seleç
+              FormText(title: 'Criar visita para novo cliente?'),
               FormText(title: 'Apelido'),
               FormText(title: 'Nome Fantasia'),
               FormText(title: 'CNPJ'),
@@ -40,8 +43,8 @@ class NovoCliente extends StatelessWidget {
               FormText(title: 'Complemento Logradouro'),
               FormText(title: 'Rota'),
               FormText(title: 'Foto CPF'),
-              FormText(title: 'Rota'),
-              FormText(title: 'Rota'),
+              FormText(title: 'Foto Comprovante de Residência'),
+              FormText(title: 'Foto Identidade'),
             ],
           ),
         ),
