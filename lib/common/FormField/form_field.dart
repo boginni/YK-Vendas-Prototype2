@@ -1,14 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-/**
- * 
- */
 class FormCampo extends StatelessWidget {
+  FormCampo({String this.title = "", bool this.mandatoryField = false});
 
-  FormCampo({required this.title});
+  String title;
+  bool mandatoryField;
 
-  final String title;
+  double fontSize = 16;
 
   Widget getTitleText() {
     return Text(
@@ -18,23 +17,36 @@ class FormCampo extends StatelessWidget {
   }
 
   Widget getCustomField() {
-    return TextField(
-      decoration: const InputDecoration(
-          border: UnderlineInputBorder(),
-          hintText: ''
+    return const SizedBox(
+      height: 28,
+      child: TextField(
+        decoration: InputDecoration(
+            contentPadding: EdgeInsets.all(10),
+            // border: OutlineInputBorder(),
+            hintText: '',
+
+        ),
+        // textAlignVertical: TextAlignVertical.bottom,
+
       ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        getTitleText(),
-        getCustomField(),
-      ],
+    return SizedBox(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          getTitleText(),
+          getCustomField(),
+          SizedBox(
+            height: 32,
+          )
+        ],
+      ),
+
+
     );
   }
-
 }

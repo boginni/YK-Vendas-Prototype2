@@ -45,9 +45,11 @@ class LoginScreen extends StatelessWidget {
                           return null;
                         },
                       ),
+
                       const SizedBox(
                         height: 16,
                       ),
+
                       TextFormField(
                         controller: passController,
                         enabled: !UserManager.loading,
@@ -60,6 +62,7 @@ class LoginScreen extends StatelessWidget {
                           return null;
                         },
                       ),
+
                       Align(
                         alignment: Alignment.centerRight,
                         child: TextButton(
@@ -67,9 +70,11 @@ class LoginScreen extends StatelessWidget {
                           child: const Text('Esqueci minha senha'),
                         ),
                       ),
+
                       const SizedBox(
                         height: 16,
                       ),
+
                       SizedBox(
                         height: 44,
                         child: ElevatedButton(
@@ -89,13 +94,13 @@ class LoginScreen extends StatelessWidget {
                           },
                           style: ElevatedButton.styleFrom(
                               primary: Theme.of(context).primaryColor
-
                           ),
 
                           child: const Text(
                             "Entrar",
                             style: TextStyle(fontSize: 18),
                           ),
+
                         ),
                       ),
 

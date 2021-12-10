@@ -1,67 +1,82 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:loja_virtual/screens/base/base_screen.dart';
+import 'package:provider/provider.dart';
 
-import 'screens/base/base_screen.dart';
+import 'models/user_manager.dart';
 
 
-Future <void> main() async {
+void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  runApp(App());
+}
 
-  runApp(MyApp());
+class App extends StatefulWidget {
+  // Create the initialization Future outside of `build`:
+  @override
+  _AppState createState() => _AppState();
+}
 
-  print('test');
+class _AppState extends State<App> {
+  /// The future is part of the state of our widget. We should not call `initializeApp`
+  /// directly inside [build].
+  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
 
-  FirebaseFirestore.instance.collection('pedidos').doc('#00001').snapshots().listen((event) {
-    print(event.data());
-  });
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+      // Initialize FlutterFire:
+      future: _initialization,
+      builder: (context, snapshot) {
+        // Check for errors
+        if (snapshot.hasError) {
+          return Center(
+            child: Container(
+              child: Text('Erro'),
+            ),
+          );
+        }
 
+        // Once complete, show your application
+        if (snapshot.connectionState == ConnectionState.done) {
+          FirebaseFirestore.instance.collection('teste').add({'teste':'teste'});
+          return MyApp();
 
+        }
+
+        // Otherwise, show something whilst waiting for initialization to complete
+        return Center(
+          child: CircularProgressIndicator(),
+        );
+      },
+    );
+  }
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
-
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
 
+    return ChangeNotifierProvider(
+      create: (_)=> UserManager(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: "Loja do Matheus",
 
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const Home(),
-    );
-  }
-}
+        theme: ThemeData(
+          primaryColor: const Color.fromARGB(255, 4, 125, 141),
+          scaffoldBackgroundColor: const Color.fromARGB(255, 4, 125, 141),
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+          appBarTheme: const AppBarTheme(
+              elevation: 0
+          ),
 
-class Home extends StatelessWidget {
-  const Home({Key? key}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-
-    const Color primaryColor = Colors.blueAccent;
-
-    return MaterialApp(
-      title: 'boginni store',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primaryColor: primaryColor,
-        scaffoldBackgroundColor:  primaryColor,
-        appBarTheme: const AppBarTheme(
-          elevation: 0,
-          color: primaryColor,
         ),
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+        home: BaseScreen(),
       ),
-      home: BaseScreen()
     );
-
   }
-
-
 }

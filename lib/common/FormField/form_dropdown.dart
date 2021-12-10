@@ -3,14 +3,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:loja_virtual/common/FormField/form_field.dart';
 
-class FormDropDown extends FormCampo{
-  FormDropDown({required title}) : super(title: title);
+abstract class FormDropDown extends FormCampo{
 
   var itens = <String>[];
-
+  String dropdownValue = 'One';
   @override
   Widget getCustomField() {
-    String dropdownValue = 'One';
 
     return DropdownButton<String>(
       value: dropdownValue,
@@ -22,10 +20,7 @@ class FormDropDown extends FormCampo{
         color: Colors.deepPurpleAccent,
       ),
       onChanged: (String? newValue) {
-        //
-        // setState(() {
-        //   dropdownValue = newValue!;
-        // });
+        dropdownValue = newValue!;
       },
       items: itens
           .map<DropdownMenuItem<String>>((String value) {
@@ -38,6 +33,31 @@ class FormDropDown extends FormCampo{
   }
 
 
+}
+
+
+class FormTipoCliente extends FormDropDown {
+
+  FormTipoCliente(){
+    itens = ['Pessoa Física', 'Pessoa Jurídica'];
+    dropdownValue = itens[0];
+  }
+}
+
+class FormCidade extends FormDropDown {
+
+  FormCidade(){
+    itens = ['Exemplo', 'Exemplo'];
+    dropdownValue = itens[0];
+  }
+}
+
+class FormRota extends FormDropDown {
+
+  FormCidade(){
+    itens = ['Rota 1', 'Rota 2'];
+    dropdownValue = itens[0];
+  }
 }
 
 /*
