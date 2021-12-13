@@ -47,14 +47,14 @@ class FormTipoCliente extends FormDropDown {
 class FormCidade extends FormDropDown {
 
   FormCidade(){
-    itens = ['Exemplo', 'Exemplo'];
+    itens = ['Exemplo 1', 'Exemplo 2'];
     dropdownValue = itens[0];
   }
 }
 
 class FormRota extends FormDropDown {
 
-  FormCidade(){
+  FormRota(){
     itens = ['Rota 1', 'Rota 2'];
     dropdownValue = itens[0];
   }

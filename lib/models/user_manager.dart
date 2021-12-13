@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:loja_virtual/helpers/firebase_errors.dart';
 import 'package:loja_virtual/models/user_app.dart';
+import 'package:loja_virtual/screens/Novo%20Cliente/novo_cliente.dart';
 
 class UserManager extends ChangeNotifier {
   final FirebaseAuth auth = FirebaseAuth.instance;
@@ -16,6 +17,18 @@ class UserManager extends ChangeNotifier {
     try {
       final UserCredential result = await auth.signInWithEmailAndPassword(
           email: userApp!.email, password: userApp.password);
+      onSuccess!();
+    } on FirebaseAuthException catch (e) {
+      onFail!(getErrorString(e.code));
+    }
+    loading = (false);
+  }
+
+
+  Future<void> addCliente(
+      {Cliente? cliente, Function? onFail, Function? onSuccess}) async {
+    loading = (true);
+    try {
       onSuccess!();
     } on FirebaseAuthException catch (e) {
       onFail!(getErrorString(e.code));

@@ -3,12 +3,48 @@ import 'package:flutter/material.dart';
 import 'package:loja_virtual/common/FormField/form_button.dart';
 import 'package:loja_virtual/common/FormField/form_dropdown.dart';
 import 'package:loja_virtual/common/FormField/form_field.dart';
+import 'package:loja_virtual/common/FormField/form_image.dart';
 import 'package:loja_virtual/common/FormField/form_text.dart';
 import 'package:loja_virtual/common/custom_drawer/custom_drawer.dart';
 
+class Cliente{
+
+
+  String apelido = "";
+  String nomeFantasia = "";
+  String cnpj = "";
+  String inscricaoEstadual = "";
+  String cpf = "";
+  String rg = "";
+  String dataNascimento = "";
+  String dddCelular = "";
+  String celular = "";
+  String dddTelefone = "";
+  String telefone = "";
+  String email = "";
+  String obs = "";
+  String cidade = "";
+  String municipio = "";
+  String cep = "";
+  String bairro = "";
+  String logradouro = "";
+  String numero = "";
+  String complementoLogadouro = "";
+  String rota = "";
+}
+
 class NovoCliente extends StatelessWidget {
+
+
+
+  final cliente = Cliente();
+
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
+    var formfields = <ValueNotifier>[];
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Novo Cliente'),
@@ -18,37 +54,87 @@ class NovoCliente extends StatelessWidget {
       body: Center(
         child: Card(
           margin: const EdgeInsets.symmetric(horizontal: 8.0),
-          child: ListView(
-            padding: const EdgeInsets.all(16),
-            children: [
-              FormTipoCliente()..title = 'Tipo de cliente', // Caixa de seleç
-              FormSwitch()..title = 'Criar visita para novo cliente?',
-              FormText()..title = 'Apelido',
-              FormText()..title = 'Nome Fantasia',
-              FormText()..title = 'CNPJ',
-              FormText()..title = 'Inscrição Estadual',
-              FormText()..title = 'CPF',
-              FormText()..title = 'RG',
-              FormDataNascimento()..title = 'Data de nascimento',
-              FormText()..title = 'DDD Celular',
-              FormText()..title = 'Celular',
-              FormText()..title = 'DDD Telefone',
-              FormText()..title = 'Telefone',
-              FormText()..title = 'Email',
-              FormText()..title = 'Observação',
-              FormText()..title = 'Cidade', //Escolha
-              FormText()..title = 'Município',
-              FormText()..title = 'CEP',
-              FormText()..title = 'Bairro',
-              FormText()..title = 'Logradouro',
-              FormText()..title = 'Número',
-              FormText()..title = 'Complemento Logradouro',
-              FormText()..title = 'Rota', // Escolha
-              FormText()..title = 'Foto CPF',
-              FormText()..title = 'Foto Comprovante de Residência',
-              FormText()..title = 'Foto Identidade',
-            ],
+          child: SingleChildScrollView(
+            child: Form(
+              key: formKey,
+              child: Column(
+                // padding: const EdgeInsets.all(16),
+
+                children: [
+                  FormTipoCliente()
+                    ..title = 'Tipo de cliente'
+                    ..mandatoryField = true, // Caixa de seleç
+                  FormSwitch()
+                    ..title = 'Criar visita para novo cliente?'
+                    ..mandatoryField = true,
+                  FormText(saveFunction: (txt) { cliente.apelido = txt; },)
+                    ..title = 'Apelido'
+                    ..mandatoryField = true,
+                  FormText(saveFunction: (txt){cliente.nomeFantasia = txt; },)
+                    ..title = 'Nome Fantasia'
+                    ..mandatoryField = true,
+                  FormText(saveFunction: (txt) { cliente.cnpj = txt; })
+                    ..title = 'CNPJ'
+                    ..mandatoryField = true,
+                  FormText(saveFunction: (txt) { cliente.inscricaoEstadual = txt; })
+                    ..title = 'Inscrição Estadual'
+                    ..mandatoryField = true,
+                  FormText(saveFunction: (txt) { cliente.cpf = txt; })
+                    ..title = 'CPF'
+                    ..mandatoryField = true,
+                  FormText(saveFunction: (txt) { cliente.rg = txt; })
+                    ..title = 'RG'
+                    ..mandatoryField = true,
+                  FormDataNascimento()
+                    ..title = 'Data de nascimento'
+                    ..mandatoryField = true,
+                  FormText(saveFunction: (txt) { cliente.dddCelular = txt; })..title = 'DDD Celular',
+                  FormText(saveFunction: (txt) { cliente.celular = txt; })
+                    ..title = 'Celular'
+                    ..mandatoryField = true,
+                  FormText(saveFunction: (txt) { cliente.dddTelefone = txt; })..title = 'DDD Telefone',
+                  FormText(saveFunction: (txt) { cliente.telefone = txt; })..title = 'Telefone',
+                  FormText(saveFunction: (txt) { cliente.email = txt; })..title = 'Email',
+                  FormText(saveFunction: (txt) { cliente.obs = txt; })..title = 'Observação',
+                  FormCidade()
+                    ..title = 'Cidade'
+                    ..mandatoryField = true, //Escolha
+                  FormText(saveFunction: (txt) { cliente.municipio = txt; })
+                    ..title = 'Município'
+                    ..mandatoryField = true,
+                  FormText(saveFunction: (txt) { cliente.cep = txt; })
+                    ..title = 'CEP'
+                    ..mandatoryField = true,
+                  FormText(saveFunction: (txt) { cliente.bairro = txt; })
+                    ..title = 'Bairro'
+                    ..mandatoryField = true,
+                  FormText(saveFunction: (txt) { cliente.logradouro = txt; })
+                    ..title = 'Logradouro'
+                    ..mandatoryField = true,
+                  FormText(saveFunction: (txt) { cliente.numero = txt; })..title = 'Número',
+                  FormText(saveFunction: (txt) { cliente.complementoLogadouro = txt; })..title = 'Complemento Logradouro',
+                  FormRota()
+                    ..title = 'Rota'
+                    ..mandatoryField = true, // Escolha
+                  FormImage()..title = 'Foto CPF',
+                  FormImage()..title = 'Foto Comprovante de Residência',
+                  FormImage()..title = 'Foto Identi dade',
+                ],
+              ),
+            ),
           ),
+        ),
+      ),
+      floatingActionButton: ElevatedButton(
+
+        onPressed: () {
+          if (formKey.currentState!.validate()) {
+            print("Campos Validados");
+          }
+        },
+        child: const Text(
+          "Adicionar",
+          style: TextStyle(fontSize: 18),
         ),
       ),
     );
