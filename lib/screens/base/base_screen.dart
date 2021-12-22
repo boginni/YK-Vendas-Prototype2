@@ -1,8 +1,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:loja_virtual/models/page_manager.dart';
-import 'package:loja_virtual/screens/Novo%20Cliente/novo_cliente.dart';
+import 'package:loja_virtual/screens/configura%C3%A7%C3%B5es/tela_configuracoes.dart';
 import 'package:loja_virtual/screens/login/login_screen.dart';
+import 'package:loja_virtual/screens/mensagens/mensagens.dart';
+import 'package:loja_virtual/screens/novo%20cliente/novo_cliente.dart';
+import 'package:loja_virtual/screens/rotas/tela_rotas.dart';
 import 'package:provider/provider.dart';
 
 import '../../common/custom_drawer/custom_drawer.dart';
@@ -24,29 +27,26 @@ class BaseScreen extends StatelessWidget{
         physics: const NeverScrollableScrollPhysics(),
         children: <Widget>[
           LoginScreen(),
-          Scaffold(
-            drawer: CustomDrawer(),
-            appBar: AppBar(
-              title: const Text('Home2'),
-            ),
-          ),
-          Scaffold(
-            drawer: CustomDrawer(),
-            appBar: AppBar(
-              title: const Text('Home3'),
-            ),
-          ),
-          Scaffold(
-            drawer: CustomDrawer(),
-            appBar: AppBar(
-              title: const Text('Home4'),
-            ),
-          ),
-          NovoCliente(),
-
+          TelaNovoCliente(),
+          TelaMensagens(), // mensagens
+          TelaRotas(),//Roteirizador
+          TelaRotas(),//Rotas
+          Scaffold(),//Consultas
+          Scaffold(),//Painel
+          Scaffold(),//Incluir visita
+          TelaConfiguracoes(),
+          Scaffold(),//Sair
 
         ],
       ),
     );
   }
 }
+
+// return Scaffold(
+// appBar: AppBar(
+// title: Text('Novo Cliente'),
+// centerTitle: true,
+// ),
+// drawer: CustomDrawer(),
+// body: Center());

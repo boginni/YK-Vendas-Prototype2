@@ -9,7 +9,6 @@ abstract class FormDropDown extends FormCampo{
   String dropdownValue = 'One';
   @override
   Widget getCustomField() {
-
     return DropdownButton<String>(
       value: dropdownValue,
       icon: const Icon(Icons.arrow_downward),
@@ -45,7 +44,6 @@ class FormTipoCliente extends FormDropDown {
 }
 
 class FormCidade extends FormDropDown {
-
   FormCidade(){
     itens = ['Exemplo 1', 'Exemplo 2'];
     dropdownValue = itens[0];
@@ -59,6 +57,34 @@ class FormRota extends FormDropDown {
     dropdownValue = itens[0];
   }
 }
+
+
+
+
+class FormIdioma extends FormDropDown {
+  FormIdioma(){
+    itens = ['Nativo', 'Portugês', 'Inglês'];
+    dropdownValue = itens[0];
+  }
+}
+
+
+
+
+class FormTipoTeclado extends FormDropDown {
+  FormTipoTeclado(){
+    itens = ['Numérico', 'Alfanumérico', 'Latim'];
+    dropdownValue = itens[0];
+  }
+}
+
+class FormOpcoesAdicionaisPesquisa extends FormDropDown {
+  FormOpcoesAdicionaisPesquisa(){
+    itens = ['Nenhum', 'Opção 1'];
+    dropdownValue = itens[0];
+  }
+}
+
 
 /*
 

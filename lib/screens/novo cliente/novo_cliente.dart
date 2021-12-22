@@ -33,7 +33,7 @@ class Cliente{
   String rota = "";
 }
 
-class NovoCliente extends StatelessWidget {
+class TelaNovoCliente extends StatelessWidget {
 
 
 
