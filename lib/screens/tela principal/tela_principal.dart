@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 import 'package:loja_virtual/common/custom_drawer/custom_drawer.dart';
 import 'package:loja_virtual/screens/base/moddel_screen.dart';
@@ -10,12 +11,34 @@ class TelaPrincipal extends ModdelScreen {
     return Scaffold(
       appBar: AppBar(
         title: Text("Força de Vendas"),
+        actions: <Widget>[
+          Padding(
+            padding: EdgeInsets.only(right: 20),
+            child: GestureDetector(
+              onTap: (){},
+              child: Icon(
+                Icons.search,
+                size: 26.0
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(right: 20),
+            child: GestureDetector(
+              onTap: (){},
+              child: Icon(
+                  Icons.sync,
+                  size: 26.0
+              ),
+            ),
+          )
+        ],
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.grey[50],
       drawer: CustomDrawer(),
       body: Container(
         child: Column(
-          children: [
+          children: const [
             TileVisita(
               nome: 'Raimunda Hosana',
               apelido: 'Paraiso Bar',
@@ -69,48 +92,44 @@ class TileVisita extends StatelessWidget {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 8, vertical: 10),
       child: RaisedButton(
-
-        onPressed: () {  },
-        child: Column(
-          children: [
-            Row(
-              children: [
-                getMapIcon(),
-                SizedBox(
-                  width: 8,
-                ),
-                Flexible(
-                  child: Column(
-                    children: [
-                      Align(
-                        alignment: Alignment.topLeft,
-                        child: Text(nome,
-                            style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.grey[900])),
-                      ),
-                      Align(
-                        alignment: Alignment.topLeft,
-                        child: Text(
-                          apelido,
+        color: Colors.white,
+        onPressed: () {},
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+          child: Row(
+            children: [
+              getMapIcon(),
+              SizedBox(
+                width: 8,
+              ),
+              Flexible(
+                child: Column(
+                  children: [
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: Text(apelido,
                           style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.grey[500],
-                          ),
-                          textAlign: TextAlign.left,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.grey[900])),
+                    ),
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                        nome,
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey[500],
                         ),
+                        textAlign: TextAlign.left,
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-            // Divider(
-            //   color: Colors.grey,
-            // ),
-          ],
+              ),
+            ],
+          ),
         ),
       ),
     );
