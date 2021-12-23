@@ -6,6 +6,7 @@ import 'package:loja_virtual/common/FormField/form_field.dart';
 import 'package:loja_virtual/common/FormField/form_image.dart';
 import 'package:loja_virtual/common/FormField/form_text.dart';
 import 'package:loja_virtual/common/custom_drawer/custom_drawer.dart';
+import 'package:loja_virtual/screens/base/moddel_screen.dart';
 
 class Cliente{
 
@@ -33,7 +34,7 @@ class Cliente{
   String rota = "";
 }
 
-class TelaNovoCliente extends StatelessWidget {
+class TelaNovoCliente extends ModdelScreen {
 
 
 
@@ -42,7 +43,7 @@ class TelaNovoCliente extends StatelessWidget {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
-  Widget build(BuildContext context) {
+  Widget getCustomScreen(BuildContext context) {
     var formfields = <ValueNotifier>[];
 
     return Scaffold(

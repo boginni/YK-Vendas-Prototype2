@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:loja_virtual/common/custom_drawer/custom_drawer.dart';
+import 'package:loja_virtual/screens/base/moddel_screen.dart';
 
-class TelaMensagens extends StatelessWidget {
+class TelaMensagens extends ModdelScreen {
   @override
-  Widget build(BuildContext context) {
+  Widget getCustomScreen(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           title: Text('Mensagens'),
@@ -15,4 +16,5 @@ class TelaMensagens extends StatelessWidget {
           child: Center(child: Text('Nem uma mensagem')),
         ));
   }
+
 }

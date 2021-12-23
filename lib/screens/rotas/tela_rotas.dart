@@ -2,11 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:loja_virtual/common/custom_drawer/custom_drawer.dart';
+import 'package:loja_virtual/screens/base/moddel_screen.dart';
 
-class TelaRotas extends StatelessWidget {
+class TelaRotas extends ModdelScreen {
   @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
+  Widget getCustomScreen(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           title: Text('Novo Cliente'),
@@ -58,7 +58,9 @@ class RotaTile extends StatelessWidget {
 
   static Widget getMapIcon() {
     return Icon(
-        ++curMap % 2 != 0 ? CupertinoIcons.map : CupertinoIcons.map_fill,size: 32,);
+      ++curMap % 2 != 0 ? CupertinoIcons.map : CupertinoIcons.map_fill,
+      size: 32,
+    );
   }
 
   @override
@@ -69,7 +71,9 @@ class RotaTile extends StatelessWidget {
         Row(
           children: [
             getMapIcon(),
-            SizedBox(width: 12,),
+            SizedBox(
+              width: 12,
+            ),
             Flexible(
               child: Text(
                 nome,
