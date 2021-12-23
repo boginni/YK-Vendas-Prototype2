@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:loja_virtual/screens/base/base_screen.dart';
+import 'package:loja_virtual/screens/tela%20principal/tela_principal.dart';
 import 'package:provider/provider.dart';
 
 import 'models/user_manager.dart';
@@ -73,9 +74,20 @@ class MyApp extends StatelessWidget {
               elevation: 0
           ),
 
-
         ),
         home: BaseScreen(),
+
+          // onGenerateRoute: (settings) {
+          //   switch (settings.name) {
+          //     case '/login':
+          //       return MaterialPageRoute(builder: (_) => SignupScreen());
+          //     case '/base':
+          //     default:
+          //       return MaterialPageRoute(builder: (_) => BaseScreen());
+          //   }
+          // }
+
+
       ),
     );
   }

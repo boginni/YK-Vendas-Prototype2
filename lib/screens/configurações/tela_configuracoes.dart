@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:loja_virtual/common/FormField/form_dropdown.dart';
 import 'package:loja_virtual/common/custom_drawer/custom_drawer.dart';
+import 'package:loja_virtual/screens/base/moddel_screen.dart';
 
-class TelaConfiguracoes extends StatelessWidget {
+class TelaConfiguracoes extends ModdelScreen {
+
   @override
-  Widget build(BuildContext context) {
+  Widget getCustomScreen(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Configurações'),

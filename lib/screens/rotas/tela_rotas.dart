@@ -14,6 +14,7 @@ class TelaRotas extends StatelessWidget {
         ),
         drawer: CustomDrawer(),
         body: Container(
+          color: Colors.white,
           child: ListView(
             children: const <Widget>[
               RotaTile(
@@ -57,7 +58,7 @@ class RotaTile extends StatelessWidget {
 
   static Widget getMapIcon() {
     return Icon(
-        ++curMap % 2 != 0 ? CupertinoIcons.map : CupertinoIcons.map_fill);
+        ++curMap % 2 != 0 ? CupertinoIcons.map : CupertinoIcons.map_fill,size: 32,);
   }
 
   @override
@@ -68,12 +69,15 @@ class RotaTile extends StatelessWidget {
         Row(
           children: [
             getMapIcon(),
-            Text(
-              nome,
-              style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.cyan),
+            SizedBox(width: 12,),
+            Flexible(
+              child: Text(
+                nome,
+                style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.cyan),
+              ),
             ),
           ],
         ),

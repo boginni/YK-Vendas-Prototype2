@@ -5,14 +5,14 @@ class CustomDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    int i = 0;
+    int i = 1;
     return Drawer(
       child: ListView(
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
-              children: <Widget>[
+              children: const <Widget>[
                 Text(
                   'Logo da Empresa',
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32),
@@ -30,11 +30,7 @@ class CustomDrawer extends StatelessWidget {
             ),
           ),
           const Divider(color: Colors.grey),
-          DrawerTile(
-            iconData: Icons.login,
-            title: 'Login',
-            page: i++,
-          ),
+
           DrawerTile(
             iconData: Icons.person_add_outlined,
             title: 'Novo Cliente',
@@ -64,10 +60,17 @@ class CustomDrawer extends StatelessWidget {
             title: 'Consultas',
             page: i++,
           ),
+
+
           //Painel de Gestão
           DrawerTile(
             iconData: Icons.insert_chart_outlined,
             title: 'Painel de Gestão',
+            page: i++,
+          ),
+          DrawerTile(
+            iconData: Icons.bar_chart,
+            title: 'Gráficos',
             page: i++,
           ),
           //Incluir Visita na Agenda
