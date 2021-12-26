@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:loja_virtual/screens/base/base_screen.dart';
 import 'package:loja_virtual/screens/tela%20principal/tela_pedido/tela_dados_da_entrega.dart';
+import 'package:loja_virtual/screens/tela%20principal/tela_pedido/tela_item_do_pedido.dart';
 import 'package:loja_virtual/screens/tela%20principal/tela_pedido/tela_itens_do_pedido.dart';
 import 'package:loja_virtual/screens/tela%20principal/tela_pedido/tela_tabela_de_preco.dart';
 import 'package:loja_virtual/screens/tela%20principal/tela_pedido/tela_totais_do_pedido.dart';
@@ -99,6 +100,8 @@ class MyApp extends StatelessWidget {
                 return MaterialPageRoute(builder: (_) => TelaTabelaPreco());
               case '/visitaRealizada':
                 return MaterialPageRoute(builder: (_) => TelaVisitaRealizada());
+              case '/telaItemPedido':
+                return MaterialPageRoute(builder: (_) => TelaItemPedido());
               case '/base':
               default:
                 return MaterialPageRoute(builder: (_) => BaseScreen());
