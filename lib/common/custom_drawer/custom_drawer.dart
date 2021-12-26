@@ -5,7 +5,7 @@ class CustomDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    int i = 1;
+    int i = 0;
     return Drawer(
       child: ListView(
         children: <Widget>[
@@ -30,7 +30,11 @@ class CustomDrawer extends StatelessWidget {
             ),
           ),
           const Divider(color: Colors.grey),
-
+          DrawerTile(
+            iconData: Icons.home,
+            title: 'Home',
+            page: i++,
+          ),
           DrawerTile(
             iconData: Icons.person_add_outlined,
             title: 'Novo Cliente',

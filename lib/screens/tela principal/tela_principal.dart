@@ -42,26 +42,32 @@ class TelaPrincipal extends ModdelScreen {
             TileVisita(
               nome: 'Raimunda Hosana',
               apelido: 'Paraiso Bar',
+              endereco: 'CAPITAO BARRISI, 448 - MILAGRE - CASTANHAL - 68740-001',
             ),
             TileVisita(
               nome: 'Antonio Luca',
               apelido: 'Premium Convenciencia 1581',
+              endereco: 'CAPITAO BARRISI, 448 - MILAGRE - CASTANHAL - 68740-001',
             ),
             TileVisita(
               nome: 'Paula Wanessa',
               apelido: 'Paula Dep.de Bebibas 1581',
+              endereco: 'RUA ALENCAR, 214 - MULTIRAO - Santa Maria do Para - 68738-000',
             ),
             TileVisita(
               nome: 'Francisco Waldemir',
               apelido: 'Mercantil Moura II 4172',
+              endereco: 'ROD CASTCURUCA KM - KM 42 - Curuça - 68750-000',
             ),
             TileVisita(
               nome: 'Welton Moreira',
               apelido: 'REST 1594',
+              endereco: 'Endereço',
             ),
             TileVisita(
               nome: 'Edinaldo Nascimento',
               apelido: 'Bar dp Edo',
+              endereco: 'Endereço',
             ),
           ],
         ),
@@ -71,10 +77,11 @@ class TelaPrincipal extends ModdelScreen {
 }
 
 class TileVisita extends StatelessWidget {
-  const TileVisita({Key? key, this.nome, this.apelido}) : super(key: key);
+  const TileVisita({Key? key, this.nome, this.apelido,this.endereco}) : super(key: key);
 
   final apelido;
   final nome;
+  final endereco;
   static int curMap = 0;
 
   static Widget getMapIcon() {
@@ -93,13 +100,16 @@ class TileVisita extends StatelessWidget {
       margin: EdgeInsets.symmetric(horizontal: 8, vertical: 10),
       child: RaisedButton(
         color: Colors.white,
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).pushReplacementNamed('/telaVisita');
+
+        },
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 8, vertical: 10),
           child: Row(
             children: [
               getMapIcon(),
-              SizedBox(
+              const SizedBox(
                 width: 8,
               ),
               Flexible(
@@ -120,11 +130,25 @@ class TileVisita extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
+                          color: Colors.grey[700],
+                        ),
+                        textAlign: TextAlign.left,
+                      ),
+                    ),
+
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                        endereco,
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
                           color: Colors.grey[500],
                         ),
                         textAlign: TextAlign.left,
                       ),
                     ),
+
                   ],
                 ),
               ),

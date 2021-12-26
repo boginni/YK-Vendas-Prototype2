@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
-import 'package:loja_virtual/common/FormField/form_field.dart';
+
+import 'form_field.dart';
 
 class FormSwitch extends FormCampo {
+
+
   bool _switchValue = true;
 
   @override

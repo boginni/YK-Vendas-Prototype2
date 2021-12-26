@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:loja_virtual/common/FormField/form_text.dart';
 import 'package:loja_virtual/common/custom_drawer/custom_drawer.dart';
+import 'package:loja_virtual/common/form_field/form_text.dart';
 import 'package:loja_virtual/screens/base/moddel_screen.dart';
 
 class TelaConsultas extends ModdelScreen{

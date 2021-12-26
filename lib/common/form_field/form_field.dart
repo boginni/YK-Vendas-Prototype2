@@ -4,7 +4,7 @@ import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 
 abstract class FormCampo extends StatelessWidget {
-  FormCampo({String this.title = "", bool this.mandatoryField = false});
+  FormCampo({Key? key, String this.title = "", bool this.mandatoryField = false}) : super(key: key);
 
   String title;
   bool mandatoryField;

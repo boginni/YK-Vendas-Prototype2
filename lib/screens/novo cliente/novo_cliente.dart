@@ -1,11 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:loja_virtual/common/FormField/form_button.dart';
-import 'package:loja_virtual/common/FormField/form_dropdown.dart';
-import 'package:loja_virtual/common/FormField/form_field.dart';
-import 'package:loja_virtual/common/FormField/form_image.dart';
-import 'package:loja_virtual/common/FormField/form_text.dart';
 import 'package:loja_virtual/common/custom_drawer/custom_drawer.dart';
+import 'package:loja_virtual/common/form_field/form_button.dart';
+import 'package:loja_virtual/common/form_field/form_dropdown.dart';
+import 'package:loja_virtual/common/form_field/form_image.dart';
+import 'package:loja_virtual/common/form_field/form_text.dart';
 import 'package:loja_virtual/screens/base/moddel_screen.dart';
 
 class Cliente{

@@ -2,11 +2,17 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:loja_virtual/screens/base/base_screen.dart';
+import 'package:loja_virtual/screens/tela%20principal/tela_pedido/tela_dados_da_entrega.dart';
+import 'package:loja_virtual/screens/tela%20principal/tela_pedido/tela_itens_do_pedido.dart';
+import 'package:loja_virtual/screens/tela%20principal/tela_pedido/tela_tabela_de_preco.dart';
+import 'package:loja_virtual/screens/tela%20principal/tela_pedido/tela_totais_do_pedido.dart';
+import 'package:loja_virtual/screens/tela%20principal/tela_visita/chegada_cliente.dart';
+import 'package:loja_virtual/screens/tela%20principal/tela_visita/tela_pedido.dart';
 import 'package:loja_virtual/screens/tela%20principal/tela_principal.dart';
+import 'package:loja_virtual/screens/tela%20principal/tela_visita.dart';
 import 'package:provider/provider.dart';
 
 import 'models/user_manager.dart';
-
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -41,9 +47,10 @@ class _AppState extends State<App> {
 
         // Once complete, show your application
         if (snapshot.connectionState == ConnectionState.done) {
-          FirebaseFirestore.instance.collection('teste').add({'teste':'teste'});
+          FirebaseFirestore.instance
+              .collection('teste')
+              .add({'teste': 'teste'});
           return MyApp();
-
         }
 
         // Otherwise, show something whilst waiting for initialization to complete
@@ -57,38 +64,44 @@ class _AppState extends State<App> {
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-
     return ChangeNotifierProvider(
-      create: (_)=> UserManager(),
+      create: (_) => UserManager(),
       child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: "Loja do Matheus",
-
-        theme: ThemeData(
-          primaryColor: const Color.fromARGB(255, 4, 125, 141),
-          scaffoldBackgroundColor: const Color.fromARGB(255, 4, 125, 141),
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-          appBarTheme: const AppBarTheme(
-              elevation: 0
+          debugShowCheckedModeBanner: false,
+          title: "Forca de vendas",
+          theme: ThemeData(
+            primaryColor: const Color.fromARGB(255, 4, 125, 141),
+            scaffoldBackgroundColor: const Color.fromARGB(255, 4, 125, 141),
+            visualDensity: VisualDensity.adaptivePlatformDensity,
+            appBarTheme: const AppBarTheme(elevation: 0),
           ),
+          initialRoute: '/base',
+          onGenerateRoute: (settings) {
+            switch (settings.name) {
+              case '/telaVisita':
+                return MaterialPageRoute(builder: (_) => TelaVisita());
+              case '/chegadaCliente':
+                return MaterialPageRoute(builder: (_) => TelaChegadaCliente());
+              case '/pedido':
+                return MaterialPageRoute(builder: (_) => TelaPedido());
 
-        ),
-        home: BaseScreen(),
+              case '/telaTotaisPedido':
+                return MaterialPageRoute(builder: (_) => TelaTotaisPedido());
+              case '/telaDadosEntrega':
+                return MaterialPageRoute(builder: (_) => TelaDadosEntrega());
+              case '/telaItensPedido':
+                return MaterialPageRoute(builder: (_) => TelaItensPedido());
+              case '/telaTabelaPreco':
+                return MaterialPageRoute(builder: (_) => TelaTabelaPreco());
 
-          // onGenerateRoute: (settings) {
-          //   switch (settings.name) {
-          //     case '/login':
-          //       return MaterialPageRoute(builder: (_) => SignupScreen());
-          //     case '/base':
-          //     default:
-          //       return MaterialPageRoute(builder: (_) => BaseScreen());
-          //   }
-          // }
-
-
-      ),
+              case '/base':
+              default:
+                return MaterialPageRoute(builder: (_) => BaseScreen());
+            }
+          }),
     );
   }
 }

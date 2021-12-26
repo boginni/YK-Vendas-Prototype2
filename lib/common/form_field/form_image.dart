@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:loja_virtual/common/FormField/form_field.dart';
+import 'form_field.dart';
 
 class FormImage extends FormCampo{
 
