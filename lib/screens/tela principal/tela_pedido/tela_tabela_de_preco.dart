@@ -13,7 +13,6 @@ class TelaTabelaPreco extends StatelessWidget {
           },
         ),
       ),
-      backgroundColor: Colors.white,
       body: Container(
         child: Card(
           child: ListView(

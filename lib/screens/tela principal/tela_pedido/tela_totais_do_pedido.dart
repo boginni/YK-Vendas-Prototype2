@@ -13,34 +13,35 @@ class TelaTotaisPedido extends StatelessWidget {
           },
         ),
       ),
-      backgroundColor: Colors.white,
       body: Container(
-        child: ListView(
-          children: [
-            TileText(
-              title: 'Total do Pedido',
-              value: 'R\$ 0,00',
-            ),
-            TileText(
-              title: 'Total do Pedido',
-              value: 'R\$ 0,00',
-            ),
-            TileText(
-              title: 'Prazo de Pagamento',
-              value: 'Not Implemented',
-            ),
-            TileText(
-              title: 'Observação da NF',
-              value: 'Not Implemented',
-            ),
-            TileText(
-              title: 'Assinatura',
-              value: 'Not Implemented',
-            ),
+        child: Card(
+          child: ListView(
+            children: [
+              TileText(
+                title: 'Total do Pedido',
+                value: 'R\$ 0,00',
+              ),
+              TileText(
+                title: 'Total do Pedido',
+                value: 'R\$ 0,00',
+              ),
+              TileText(
+                title: 'Prazo de Pagamento',
+                value: 'Not Implemented',
+              ),
+              TileText(
+                title: 'Observação da NF',
+                value: 'Not Implemented',
+              ),
+              TileText(
+                title: 'Assinatura',
+                value: 'Not Implemented',
+              ),
 
 
 
-          ],
+            ],
+          ),
         ),
       ),
     );

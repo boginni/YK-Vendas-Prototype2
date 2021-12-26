@@ -10,6 +10,7 @@ import 'package:loja_virtual/screens/tela%20principal/tela_visita/chegada_client
 import 'package:loja_virtual/screens/tela%20principal/tela_visita/tela_pedido.dart';
 import 'package:loja_virtual/screens/tela%20principal/tela_principal.dart';
 import 'package:loja_virtual/screens/tela%20principal/tela_visita.dart';
+import 'package:loja_virtual/screens/tela%20principal/tela_visita/tela_visita_realizada.dart';
 import 'package:provider/provider.dart';
 
 import 'models/user_manager.dart';
@@ -96,7 +97,8 @@ class MyApp extends StatelessWidget {
                 return MaterialPageRoute(builder: (_) => TelaItensPedido());
               case '/telaTabelaPreco':
                 return MaterialPageRoute(builder: (_) => TelaTabelaPreco());
-
+              case '/visitaRealizada':
+                return MaterialPageRoute(builder: (_) => TelaVisitaRealizada());
               case '/base':
               default:
                 return MaterialPageRoute(builder: (_) => BaseScreen());

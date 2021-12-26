@@ -12,14 +12,15 @@ class TelaDadosEntrega extends StatelessWidget {
               Navigator.of(context).pop(context),
         ),
       ),
-      backgroundColor: Colors.white,
       body: Container(
-        child: ListView(
-          children: [
-            TileText(title: 'Data',value: 'Not Implemented',),
-            TileText(title: 'Restrição de Horário',value: 'Not Implemented',),
-            TileText(title: 'Observações',value: 'Not Implemented',),
-          ],
+        child: Card(
+          child: ListView(
+            children: [
+              TileText(title: 'Data',value: 'Not Implemented',),
+              TileText(title: 'Restrição de Horário',value: 'Not Implemented',),
+              TileText(title: 'Observações',value: 'Not Implemented',),
+            ],
+          ),
         ),
       ),
     );

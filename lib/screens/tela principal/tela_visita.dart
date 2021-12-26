@@ -37,7 +37,7 @@ class TelaVisita extends StatelessWidget {
               title: 'Visita Realizada',
               icon: Icons.note_outlined,
               onPressMethod: () {
-                Navigator.of(context).pushNamed('/');
+                Navigator.of(context).pushNamed('/visitaRealizada');
               },
             ),
           ],
