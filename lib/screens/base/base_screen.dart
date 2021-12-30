@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:loja_virtual/models/page_manager.dart';
+import 'package:loja_virtual/screens/clientes/tela_clientes.dart';
 import 'package:loja_virtual/screens/configura%C3%A7%C3%B5es/tela_configuracoes.dart';
 import 'package:loja_virtual/screens/consultas/tela_consultas.dart';
 import 'package:loja_virtual/screens/graficos/tela_graficos.dart';
@@ -10,6 +11,7 @@ import 'package:loja_virtual/screens/painel%20de%20gerenciamento/painel_de_geren
 import 'package:loja_virtual/screens/rotas/tela_rotas.dart';
 import 'package:loja_virtual/screens/roteirizador/tela_roteirizador.dart';
 import 'package:loja_virtual/screens/tela%20principal/tela_principal.dart';
+import 'package:loja_virtual/screens/testes/test_dogs.dart';
 import 'package:loja_virtual/screens/visita%20agenda/tela_incluir_visita_na_agenda.dart';
 import 'package:provider/provider.dart';
 
@@ -27,7 +29,10 @@ class BaseScreen extends StatelessWidget {
         controller: pageController,
         physics: const NeverScrollableScrollPhysics(),
         children: <Widget>[
+
           TelaPrincipal(),
+          TelaTesteDogs(),
+          TelaClientes(),
           TelaNovoCliente(),
           TelaMensagens(), // mensagens
           TelaRoteirizador(), //Roteirizador

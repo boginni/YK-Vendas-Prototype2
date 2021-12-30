@@ -5,36 +5,10 @@ import 'package:loja_virtual/common/form_field/form_button.dart';
 import 'package:loja_virtual/common/form_field/form_dropdown.dart';
 import 'package:loja_virtual/common/form_field/form_image.dart';
 import 'package:loja_virtual/common/form_field/form_text.dart';
+import 'package:loja_virtual/models/database_objects/cliente.dart';
 import 'package:loja_virtual/screens/base/moddel_screen.dart';
 
-class Cliente{
-
-
-  String apelido = "";
-  String nomeFantasia = "";
-  String cnpj = "";
-  String inscricaoEstadual = "";
-  String cpf = "";
-  String rg = "";
-  String dataNascimento = "";
-  String dddCelular = "";
-  String celular = "";
-  String dddTelefone = "";
-  String telefone = "";
-  String email = "";
-  String obs = "";
-  String cidade = "";
-  String municipio = "";
-  String cep = "";
-  String bairro = "";
-  String logradouro = "";
-  String numero = "";
-  String complementoLogadouro = "";
-  String rota = "";
-}
-
 class TelaNovoCliente extends ModdelScreen {
-
 
 
   final cliente = Cliente();

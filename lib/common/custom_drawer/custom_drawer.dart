@@ -18,7 +18,9 @@ class CustomDrawer extends StatelessWidget {
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32),
                   textAlign: TextAlign.left,
                 ),
-                SizedBox(height: 20,),
+                SizedBox(
+                  height: 20,
+                ),
                 Text(
                   'Aplicativo Móvel',
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
@@ -33,6 +35,16 @@ class CustomDrawer extends StatelessWidget {
           DrawerTile(
             iconData: Icons.home,
             title: 'Home',
+            page: i++,
+          ),
+          DrawerTile(
+            iconData: Icons.text_fields_sharp,
+            title: 'Teste Screen',
+            page: i++,
+          ),
+          DrawerTile(
+            iconData: Icons.people,
+            title: 'Clientes',
             page: i++,
           ),
           DrawerTile(
@@ -64,7 +76,6 @@ class CustomDrawer extends StatelessWidget {
             title: 'Consultas',
             page: i++,
           ),
-
 
           //Painel de Gestão
           DrawerTile(
