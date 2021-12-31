@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:loja_virtual/common/custom_drawer/custom_drawer.dart';
-import 'package:loja_virtual/common/form_field/form_dropdown.dart';
+import 'package:loja_virtual/common/form_field/formulario.dart';
 import 'package:loja_virtual/screens/base/moddel_screen.dart';
 
 class TelaConfiguracoes extends ModdelScreen {
-
   @override
   Widget getCustomScreen(BuildContext context) {
     return Scaffold(
@@ -14,31 +13,29 @@ class TelaConfiguracoes extends ModdelScreen {
       ),
       drawer: CustomDrawer(),
       body: Container(
-
         child: Card(
-
           child: SingleChildScrollView(
             padding: EdgeInsets.symmetric(vertical: 20),
             child: Form(
               child: Column(
-                children: <Widget>[
-                  FormIdioma()..title = "Idioma",
-                  FormTipoTeclado()
-                    ..title = "Tipo de teclado utilizado nas pesquisas",
-                  FormOpcoesAdicionaisPesquisa()
-                    ..title = "Opções adicionais de pesquisa",
+                children:  <Widget>[
+                  FormIdioma(title: "Idioma"),
+                  FormTipoTeclado(
+                      title: "Tipo de teclado utilizado nas pesquisas"),
+                  FormOpcoesAdicionaisPesquisa(
+                    title: "Opções adicionais de pesquisa",
+                  ),
                   const SizedBox(
                     height: 16,
                   ),
-                  Text(
+                  const Text(
                     'Status do aplicativo',
                     style: TextStyle(fontSize: 24, fontStyle: FontStyle.italic),
                   ),
-                  Divider(color: Colors.grey),
+                  const Divider(color: Colors.grey),
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Column(
-
                       children: const [
                         Text('Quantidade de dados pendentes de envio'),
                         Text('Quantidade de mídias pendentes de envio'),

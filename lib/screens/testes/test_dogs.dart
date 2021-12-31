@@ -1,12 +1,12 @@
 import 'dart:async';
-import 'package:loja_virtual/common/form_field/form_text.dart';
+import 'package:loja_virtual/common/form_field/formulario.dart';
 import 'package:loja_virtual/models/database_local.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:sqflite/sql.dart';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:loja_virtual/common/custom_drawer/custom_drawer.dart';
+
 
 class Dog {
   var id;
@@ -30,7 +30,6 @@ class Dog {
 }
 
 class TelaTesteDogs extends StatelessWidget {
-
   // @override
   // State<StatefulWidget> createState() {
   //   // TODO: implement createState
@@ -63,21 +62,27 @@ class TelaTesteDogs extends StatelessWidget {
                 child: Text('test'),
                 color: Colors.grey,
               ),
-              FormText(saveFunction: (value) {
-                doggo.id = int.parse(value);
-              })
-                ..title = 'ID'
-                ..mandatoryField = true,
-              FormText(saveFunction: (value) {
-                doggo.name = value;
-              })
-                ..title = 'NAME'
-                ..mandatoryField = true,
-              FormText(saveFunction: (value) {
-                doggo.age = int.parse(value);
-              })
-                ..title = 'AGE'
-                ..mandatoryField = true,
+              FormText(
+                saveFunction: (value) {
+                  doggo.id = int.parse(value);
+                },
+                title: 'ID',
+                mandatoryField: true,
+              ),
+              FormText(
+                saveFunction: (value) {
+                  doggo.name = value;
+                },
+                title: 'NAME',
+                mandatoryField: true,
+              ),
+              FormText(
+                saveFunction: (value) {
+                  doggo.age = int.parse(value);
+                },
+                title: 'AGE',
+                mandatoryField: true,
+              ),
               FlatButton(
                 onPressed: () {
                   if (formKey.currentState!.validate()) {
@@ -123,8 +128,6 @@ class TelaTesteDogs extends StatelessWidget {
       ),
     );
   }
-
-
 }
 
 Future<List<Dog>> getDogsWidget() async {

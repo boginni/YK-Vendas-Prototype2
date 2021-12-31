@@ -167,11 +167,9 @@ class TileVisita extends StatelessWidget {
   }
 }
 
-
 class TileCliente extends StatelessWidget {
 
   // final Function? onPressMethod;
-
 
   final Cliente cliente;
 
