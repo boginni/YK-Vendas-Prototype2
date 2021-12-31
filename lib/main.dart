@@ -2,16 +2,16 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:loja_virtual/screens/base/base_screen.dart';
-import 'package:loja_virtual/screens/tela%20principal/tela_pedido/tela_dados_da_entrega.dart';
-import 'package:loja_virtual/screens/tela%20principal/tela_pedido/tela_item_do_pedido.dart';
-import 'package:loja_virtual/screens/tela%20principal/tela_pedido/tela_itens_do_pedido.dart';
-import 'package:loja_virtual/screens/tela%20principal/tela_pedido/tela_tabela_de_preco.dart';
-import 'package:loja_virtual/screens/tela%20principal/tela_pedido/tela_totais_do_pedido.dart';
-import 'package:loja_virtual/screens/tela%20principal/tela_visita/chegada_cliente.dart';
-import 'package:loja_virtual/screens/tela%20principal/tela_visita/tela_pedido.dart';
-import 'package:loja_virtual/screens/tela%20principal/tela_principal.dart';
-import 'package:loja_virtual/screens/tela%20principal/tela_visita.dart';
-import 'package:loja_virtual/screens/tela%20principal/tela_visita/tela_visita_realizada.dart';
+import 'package:loja_virtual/screens/clientes/tela_confirmar_novo_cliente.dart';
+import 'package:loja_virtual/screens/tela_principal/tela_pedido/tela_dados_da_entrega.dart';
+import 'package:loja_virtual/screens/tela_principal/tela_pedido/tela_item_do_pedido.dart';
+import 'package:loja_virtual/screens/tela_principal/tela_pedido/tela_itens_do_pedido.dart';
+import 'package:loja_virtual/screens/tela_principal/tela_pedido/tela_tabela_de_preco.dart';
+import 'package:loja_virtual/screens/tela_principal/tela_pedido/tela_totais_do_pedido.dart';
+import 'package:loja_virtual/screens/tela_principal/tela_visita.dart';
+import 'package:loja_virtual/screens/tela_principal/tela_visita/chegada_cliente.dart';
+import 'package:loja_virtual/screens/tela_principal/tela_visita/tela_pedido.dart';
+import 'package:loja_virtual/screens/tela_principal/tela_visita/tela_visita_realizada.dart';
 import 'package:provider/provider.dart';
 
 import 'models/user_manager.dart';
@@ -89,7 +89,6 @@ class MyApp extends StatelessWidget {
                 return MaterialPageRoute(builder: (_) => TelaChegadaCliente());
               case '/pedido':
                 return MaterialPageRoute(builder: (_) => TelaPedido());
-
               case '/telaTotaisPedido':
                 return MaterialPageRoute(builder: (_) => TelaTotaisPedido());
               case '/telaDadosEntrega':
@@ -102,6 +101,8 @@ class MyApp extends StatelessWidget {
                 return MaterialPageRoute(builder: (_) => TelaVisitaRealizada());
               case '/telaItemPedido':
                 return MaterialPageRoute(builder: (_) => TelaItemPedido());
+              case '/telaConfirmarNovoCliente':
+                return MaterialPageRoute(builder: (_) => TelaConfirmarCliente());
               case '/base':
               default:
                 return MaterialPageRoute(builder: (_) => BaseScreen());
