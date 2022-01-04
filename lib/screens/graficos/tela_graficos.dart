@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
-import 'package:loja_virtual/common/custom_drawer/custom_drawer.dart';
-import 'package:loja_virtual/screens/base/moddel_screen.dart';
+import 'package:forca_de_vendas/common/custom_drawer/custom_drawer.dart';
+import 'package:forca_de_vendas/screens/base/moddel_screen.dart';
 
 class TelaGraficos extends ModdelScreen {
   @override

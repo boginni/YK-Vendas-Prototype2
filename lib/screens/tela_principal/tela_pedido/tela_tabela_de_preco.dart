@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:loja_virtual/common/tiles/default_tiles.dart';
+import 'package:forca_de_vendas/common/tiles/default_tiles.dart';
 
 class TelaTabelaPreco extends StatelessWidget {
   @override

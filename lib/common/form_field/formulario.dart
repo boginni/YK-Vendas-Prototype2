@@ -52,7 +52,7 @@ abstract class FormDropDown extends FormCampo {
   String dropdownValue = 'One';
 
   FormDropDown({Key? key, mandatoryField, title})
-      : super(key: key, mandatoryField: mandatoryField, title: title);
+      : super(key: key, mandatoryField: mandatoryField = false, title: title);
 
   @override
   Widget getCustomField() {
@@ -85,7 +85,7 @@ class FormText extends FormCampo {
       this.initialValue = "",
       mandatoryField = false,
       title})
-      : super(key: key, mandatoryField: mandatoryField, title: title);
+      : super(key: key, mandatoryField: mandatoryField = false, title: title);
 
   String initialValue;
   Function(String?)? saveFunction;
@@ -121,7 +121,7 @@ class FormPass extends FormCampo {
   final TextEditingController passController = TextEditingController();
 
   FormPass({Key? key, mandatoryField, title})
-      : super(key: key, mandatoryField: mandatoryField, title: title);
+      : super(key: key, mandatoryField: mandatoryField = false, title: title);
 
   Widget getCustomField() {
     return TextFormField(
@@ -139,7 +139,7 @@ class FormPass extends FormCampo {
 }
 
 class FormDataNascimento extends FormCampo {
-  FormDataNascimento({Key? key, mandatoryField, title})
+  FormDataNascimento({Key? key, mandatoryField = false, title})
       : super(key: key, mandatoryField: mandatoryField, title: title);
 
   @override
@@ -150,7 +150,7 @@ class FormDataNascimento extends FormCampo {
 }
 
 class FormSwitch extends FormCampo {
-  FormSwitch({Key? key, mandatoryField, title})
+  FormSwitch({Key? key, mandatoryField  = false, title})
       : super(key: key, mandatoryField: mandatoryField, title: title);
 
   bool _switchValue = true;
@@ -190,7 +190,7 @@ class FormSwitch extends FormCampo {
 }
 
 class FormTipoCliente extends FormDropDown {
-  FormTipoCliente({Key? key, mandatoryField, title})
+  FormTipoCliente({Key? key, mandatoryField = false, title = "Tipo de Cliente"})
       : super(key: key, mandatoryField: mandatoryField, title: title) {
     itens = ['Pessoa Física', 'Pessoa Jurídica'];
     dropdownValue = itens[0];
@@ -198,7 +198,7 @@ class FormTipoCliente extends FormDropDown {
 }
 
 class FormCidade extends FormDropDown {
-  FormCidade({Key? key, mandatoryField, title})
+  FormCidade({Key? key, mandatoryField = false, title = "Cidade"})
       : super(key: key, mandatoryField: mandatoryField, title: title) {
     itens = ['Exemplo 1', 'Exemplo 2'];
     dropdownValue = itens[0];
@@ -206,7 +206,7 @@ class FormCidade extends FormDropDown {
 }
 
 class FormRota extends FormDropDown {
-  FormRota({Key? key, mandatoryField, title})
+  FormRota({Key? key, mandatoryField = false, title = "Rota"})
       : super(key: key, mandatoryField: mandatoryField, title: title) {
     itens = ['Rota 1', 'Rota 2'];
     dropdownValue = itens[0];
@@ -214,7 +214,7 @@ class FormRota extends FormDropDown {
 }
 
 class FormIdioma extends FormDropDown {
-  FormIdioma({Key? key, mandatoryField, title})
+  FormIdioma({Key? key, mandatoryField = false, title = "Idioma"})
       : super(key: key, mandatoryField: mandatoryField, title: title) {
     itens = ['Nativo', 'Portugês', 'Inglês'];
     dropdownValue = itens[0];
@@ -222,7 +222,7 @@ class FormIdioma extends FormDropDown {
 }
 
 class FormTipoTeclado extends FormDropDown {
-  FormTipoTeclado({Key? key, mandatoryField, title})
+  FormTipoTeclado({Key? key, mandatoryField = false, title = "Tipo de teclado"})
       : super(key: key, mandatoryField: mandatoryField, title: title) {
     itens = ['Numérico', 'Alfanumérico', 'Latim'];
     dropdownValue = itens[0];
@@ -230,16 +230,16 @@ class FormTipoTeclado extends FormDropDown {
 }
 
 class FormOpcoesAdicionaisPesquisa extends FormDropDown {
-  FormOpcoesAdicionaisPesquisa({Key? key, mandatoryField, title})
-      : super(key: key, mandatoryField: mandatoryField, title: title) {
+  FormOpcoesAdicionaisPesquisa({Key? key, mandatoryField = false, title = "Opções Adicionais de Pesquisa"}) : super(key: key, mandatoryField: mandatoryField, title: title)
+  {
     itens = ['Nenhum', 'Opção 1'];
     dropdownValue = itens[0];
   }
 }
 
 class FormImage extends FormCampo {
-  FormImage({Key? key, mandatoryField, title})
-      : super(key: key, mandatoryField: mandatoryField, title: title);
+  FormImage({Key? key, mandatoryField, required title})
+      : super(key: key, mandatoryField: mandatoryField = false, title: title);
 
   @override
   Widget getCustomField() {

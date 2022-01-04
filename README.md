@@ -1,6 +1,6 @@
-# loja_virtual
+# forca_de_vendas
 
-A new Flutter project.
+A new Flutter application.
 
 ## Getting Started
 

@@ -1,5 +1,7 @@
 class Cliente{
 
+  Cliente(this.nomeFantasia);
+
   String apelido = "";
   String nomeFantasia = "";
   String cnpj = "";

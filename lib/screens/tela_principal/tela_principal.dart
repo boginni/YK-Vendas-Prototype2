@@ -2,12 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
-import 'package:loja_virtual/common/custom_drawer/custom_drawer.dart';
-import 'package:loja_virtual/common/tiles/default_tiles.dart';
-import 'package:loja_virtual/models/database_objects/visita.dart';
-import 'package:loja_virtual/screens/base/moddel_screen.dart';
+import 'package:forca_de_vendas/common/custom_drawer/custom_drawer.dart';
+import 'package:forca_de_vendas/common/tiles/default_tiles.dart';
+import 'package:forca_de_vendas/models/database_objects/visita.dart';
+import 'package:forca_de_vendas/screens/base/moddel_screen.dart';
 
-class TelaPrincipal extends ModdelScreen {
+class TelaPrincipal extends ModdelScreen{
   @override
   Widget getCustomScreen(BuildContext context) {
     return Scaffold(
@@ -33,6 +33,7 @@ class TelaPrincipal extends ModdelScreen {
       backgroundColor: Colors.grey[50],
       drawer: CustomDrawer(),
       body: Container(
+
         child: FutureBuilder(
           future: getVisitas(),
           builder: (BuildContext context, AsyncSnapshot<List<Visita>> snapshot) {

@@ -1,11 +1,11 @@
 import 'dart:async';
-import 'package:loja_virtual/common/form_field/formulario.dart';
-import 'package:loja_virtual/models/database_local.dart';
+import 'package:forca_de_vendas/common/form_field/formulario.dart';
+import 'package:forca_de_vendas/models/database_local.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:sqflite/sql.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:loja_virtual/common/custom_drawer/custom_drawer.dart';
+import 'package:forca_de_vendas/common/custom_drawer/custom_drawer.dart';
 
 
 class Dog {

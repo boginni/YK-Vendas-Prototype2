@@ -1,4 +1,4 @@
-package net.boginni.loja_virtual
+package net.boginni.forca_de_vendas
 
 import io.flutter.embedding.android.FlutterActivity
 

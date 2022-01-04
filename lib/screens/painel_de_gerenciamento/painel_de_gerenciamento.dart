@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:loja_virtual/common/custom_drawer/custom_drawer.dart';
-import 'package:loja_virtual/screens/base/moddel_screen.dart';
+import 'package:forca_de_vendas/common/custom_drawer/custom_drawer.dart';
+import 'package:forca_de_vendas/screens/base/moddel_screen.dart';
 
 class TelaPainelGerenciamento extends ModdelScreen{
   @override
