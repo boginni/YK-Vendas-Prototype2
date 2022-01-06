@@ -1,5 +1,19 @@
-class Cliente{
+abstract class DatabaseObject {
+  Map<String, dynamic> toMap();
+}
 
+class Produto {
+  int id;
+  String nome;
+
+  Produto({this.nome = '', this.id = 0});
+
+  Map<String, dynamic> toMap(){
+    return {'id': id, 'nome': nome};
+  }
+}
+
+class Cliente {
   Cliente(this.nomeFantasia);
 
   String apelido = "";
@@ -24,11 +38,13 @@ class Cliente{
   String complementoLogadouro = "";
   String rota = "";
 
-
-  Map<String, dynamic> toMap(){
+  Map<String, dynamic> toMap() {
     throw UnimplementedError();
   }
+}
 
-
-
+class Visita {
+  String apelido = "";
+  String nome = "";
+  String endereco = "";
 }

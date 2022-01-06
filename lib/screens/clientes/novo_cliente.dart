@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:forca_de_vendas/common/custom_drawer/custom_drawer.dart';
 import 'package:forca_de_vendas/common/form_field/formulario.dart';
 import 'package:forca_de_vendas/models/database_local.dart';
-import 'package:forca_de_vendas/models/database_objects/cliente.dart';
+import 'package:forca_de_vendas/models/database_objects/database_objects.dart';
 import 'package:forca_de_vendas/screens/base/moddel_screen.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -158,7 +158,7 @@ class TelaNovoCliente extends ModdelScreen {
               ),
               FormImage(title: 'Foto CPF'),
               FormImage(title: 'Foto Comprovante de Residência'),
-              FormImage(title: 'Foto Identi dade'),
+              FormImage(title: 'Foto Identidade'),
             ],
           ),
         ),
@@ -167,7 +167,7 @@ class TelaNovoCliente extends ModdelScreen {
         onPressed: () {
           if (formKey.currentState!.validate()) {
             // print("Campos Validados");
-            insertCli(cliente);
+            insertCliente(cliente);
             //Navigator.of(context).pushNamed('/telaConfirmarNovoCliente');
           }
         },
@@ -181,7 +181,7 @@ class TelaNovoCliente extends ModdelScreen {
 }
 
 
-Future<void> insertCli(Cliente x) async {
+Future<void> insertCliente(Cliente x) async {
   final db = await DatabaseLocal.getDatabase();
 
   await db.insert(

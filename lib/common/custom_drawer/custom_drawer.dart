@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'drawer_tile.dart';
@@ -51,6 +52,12 @@ class CustomDrawer extends StatelessWidget {
           DrawerTile(
             iconData: Icons.person_add_outlined,
             title: 'Novo Cliente',
+            page: i++,
+          ),
+
+          DrawerTile(
+            iconData: CupertinoIcons.cube_box,
+            title: 'Produtos',
             page: i++,
           ),
           const Divider(color: Colors.grey),

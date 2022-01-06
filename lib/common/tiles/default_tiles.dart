@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:forca_de_vendas/models/database_objects/cliente.dart';
-import 'package:forca_de_vendas/models/database_objects/visita.dart';
+import 'package:forca_de_vendas/models/database_objects/database_objects.dart';
 
 class TileButton extends StatelessWidget {
   const TileButton({Key? key, this.icon, this.title, this.onPressMethod})
@@ -220,6 +219,25 @@ class TileCliente extends StatelessWidget {
     );
   }
 }
+
+class TileProduto extends StatelessWidget {
+  TileProduto({required this.produto});
+
+  final Produto produto;
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return TileButton(
+      icon: CupertinoIcons.cube_box,
+      title: produto.nome,
+      onPressMethod: () {
+        Navigator.of(context).pushNamed('/telaNovoProduto');
+      },
+    );
+  }
+}
+
 
 
 

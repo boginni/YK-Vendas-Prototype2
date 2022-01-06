@@ -4,10 +4,12 @@ import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 import 'package:forca_de_vendas/common/custom_drawer/custom_drawer.dart';
 import 'package:forca_de_vendas/common/tiles/default_tiles.dart';
-import 'package:forca_de_vendas/models/database_objects/visita.dart';
+import 'package:forca_de_vendas/models/database_objects/database_objects.dart';
 import 'package:forca_de_vendas/screens/base/moddel_screen.dart';
 
 class TelaPrincipal extends ModdelScreen{
+  //const TelaPrincipal({Key? key}) : super(key: key);
+
   @override
   Widget getCustomScreen(BuildContext context) {
     return Scaffold(

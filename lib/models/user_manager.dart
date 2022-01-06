@@ -1,6 +1,5 @@
 
 import 'package:flutter/cupertino.dart';
-import 'database_objects/cliente.dart';
 
 // class UserManager extends ChangeNotifier {
 //   final FirebaseAuth auth = FirebaseAuth.instance;

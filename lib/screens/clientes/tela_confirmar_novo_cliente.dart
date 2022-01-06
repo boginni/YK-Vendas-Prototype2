@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:forca_de_vendas/common/custom_drawer/custom_drawer.dart';
-import 'package:forca_de_vendas/common/tiles/default_tiles.dart';
-import 'package:forca_de_vendas/models/database_objects/cliente.dart';
+import 'package:forca_de_vendas/models/database_objects/database_objects.dart';
 
 class TelaConfirmarCliente extends StatelessWidget {
   Cliente cliente = Cliente('teste');
@@ -20,8 +19,12 @@ class TelaConfirmarCliente extends StatelessWidget {
             size: 32,
           ),
         ],
+        leading: BackButton(
+          onPressed: () {
+            Navigator.of(context).pop(context);
+          },
+        ),
       ),
-      drawer: CustomDrawer(),
       body: Container(
         child: Card(
           child: ListView(

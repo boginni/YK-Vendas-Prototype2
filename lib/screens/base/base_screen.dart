@@ -8,6 +8,7 @@ import 'package:forca_de_vendas/screens/graficos/tela_graficos.dart';
 import 'package:forca_de_vendas/screens/login/login_screen.dart';
 import 'package:forca_de_vendas/screens/mensagens/mensagens.dart';
 import 'package:forca_de_vendas/screens/painel_de_gerenciamento/painel_de_gerenciamento.dart';
+import 'package:forca_de_vendas/screens/produtos/tela_produtos.dart';
 import 'package:forca_de_vendas/screens/rotas/tela_rotas.dart';
 import 'package:forca_de_vendas/screens/roteirizador/tela_roteirizador.dart';
 import 'package:forca_de_vendas/screens/tela_principal/tela_principal.dart';
@@ -34,6 +35,7 @@ class BaseScreen extends StatelessWidget {
           TelaTesteDogs(),
           TelaClientes(),
           TelaNovoCliente(),
+          TelaProdutos(),
           TelaMensagens(), // mensagens
           TelaRoteirizador(), //Roteirizador
           TelaRotas(), //Rotas

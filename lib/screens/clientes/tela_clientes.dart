@@ -4,7 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:forca_de_vendas/common/custom_drawer/custom_drawer.dart';
 import 'package:forca_de_vendas/common/tiles/default_tiles.dart';
 import 'package:forca_de_vendas/models/database_local.dart';
-import 'package:forca_de_vendas/models/database_objects/cliente.dart';
+import 'package:forca_de_vendas/models/database_objects/database_objects.dart';
 
 class TelaClientes extends StatelessWidget {
   @override
@@ -52,9 +52,8 @@ class TelaClientes extends StatelessWidget {
 
 Future<List<Cliente>> getClientes() async{
   final db = await DatabaseLocal.getDatabase();
-  // Query the table for all The Dogs.
   final List<Map<String, dynamic>> maps = await db.query('clientes');
-  // Convert the List<Map<String, dynamic> into a List<Dog>.
+
   return List.generate(maps.length, (i) {
     return Cliente(
       maps[i]['nome'],
