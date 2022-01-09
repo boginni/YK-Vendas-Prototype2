@@ -6,62 +6,66 @@ import 'package:forca_de_vendas/models/database_objects/database_objects.dart';
 import 'package:sqflite/sqflite.dart';
 
 class TelaNovoProduto extends StatelessWidget {
-  final Produto produto = Produto();
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  // const TelaNovoProduto();
+
+  static const routeName = '/telaNovoProduto';
+
+  const TelaNovoProduto({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final Produto produto = Produto();
+    final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('Novo Produto'),
+        title: const Text('Novo Produto'),
         leading: BackButton(
           onPressed: () {
             Navigator.of(context).pop(context);
           },
         ),
       ),
-      body: Container(
-        child: Card(
-          child: Form(
-            key: formKey,
-            child: ListView(
-              shrinkWrap: true,
-              children: <Widget>[
-                FormText(
-                    title: "ID",
-                    saveFunction: (text) {
-                      produto.id = text;
-                    }),
-                FormText(
-                    title: "Nome",
-                    saveFunction: (text) {
-                      produto.nome = text;
-                    }),
-                ElevatedButton(
-                  onPressed: () async {
-                    if (formKey.currentState!.validate())  {
-                      // print("Campos Validados");
+      body: Card(
+        child: Form(
+          key: formKey,
+          child: ListView(
+            shrinkWrap: true,
+            children: <Widget>[
+              FormText(
+                  title: "ID",
+                  saveFunction: (text) {
+                    produto.id = int.parse(text.toString());
+                  }),
+              FormText(
+                  title: "Nome",
+                  saveFunction: (text) {
+                    produto.nome = text;
+                  }),
+              ElevatedButton(
+                onPressed: () async {
+                  if (formKey.currentState!.validate()) {
+                    // print("Campos Validados");
 
-                      onSuccess(){
-                        print('Inserido');
-                        Navigator.of(context).pop(context);
-                      };
+                    formKey.currentState!.save();
 
-
-                      onFail(){
-                        print('Erro');
-                      };
-
-                      await insertProduto(produto, onSuccess, onFail);
+                    onSuccess() {
+                      Navigator.of(context).pop(context);
                     }
-                  },
-                  child: const Text(
-                    "Adicionar",
-                    style: TextStyle(fontSize: 18),
-                  ),
+
+                    onFail() {
+                      debugPrint('Não implementado');
+                    }
+
+                    await insertProduto(produto, onSuccess, onFail);
+                  }
+                },
+                child: const Text(
+                  "Adicionar",
+                  style: TextStyle(fontSize: 18),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
@@ -70,7 +74,7 @@ class TelaNovoProduto extends StatelessWidget {
 }
 
 Future<void> insertProduto(Produto x, onSuccess, onFail) async {
-  try{
+  try {
     final db = await DatabaseLocal.getDatabase();
 
     await db.insert(
@@ -80,7 +84,7 @@ Future<void> insertProduto(Produto x, onSuccess, onFail) async {
     );
 
     onSuccess();
-  } catch (e){
+  } catch (e) {
     onFail();
   }
 }

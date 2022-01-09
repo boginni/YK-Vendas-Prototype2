@@ -1,26 +1,27 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:forca_de_vendas/models/database_objects/database_objects.dart';
+import 'package:forca_de_vendas/screens/tela_principal/tela_visita.dart';
 
 class TileButton extends StatelessWidget {
-  const TileButton({Key? key, this.icon, this.title, this.onPressMethod})
+  const TileButton({Key? key, this.icon, this.title = "", this.onPressMethod})
       : super(key: key);
 
   final Function? onPressMethod;
   final IconData? icon;
-  final title;
+  final String title;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
       child: RaisedButton(
         color: Colors.white,
         onPressed: () {
           onPressMethod!();
         },
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
           child: Row(
             children: [
               Icon(
@@ -49,17 +50,18 @@ class TileButton extends StatelessWidget {
 }
 
 class TileText extends StatelessWidget {
-  const TileText({Key? key, this.title, this.value}) : super(key: key);
+  const TileText({Key? key, this.title = "", this.value = ""})
+      : super(key: key);
 
-  final title;
-  final value;
+  final String title;
+  final String value;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
         child: Column(
           children: [
             Align(
@@ -83,7 +85,6 @@ class TileText extends StatelessWidget {
 }
 
 class TileVisita extends StatelessWidget {
-
   final Visita visita;
 
   const TileVisita({Key? key, required this.visita}) : super(key: key);
@@ -103,15 +104,15 @@ class TileVisita extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       child: RaisedButton(
         color: Colors.white,
         onPressed: () {
-          Navigator.of(context).pushNamed('/telaVisita');
-
+          Navigator.of(context)
+              .pushNamed(TelaVisita.routeName, arguments: visita);
         },
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
           child: Row(
             children: [
               getMapIcon(),
@@ -141,11 +142,10 @@ class TileVisita extends StatelessWidget {
                         textAlign: TextAlign.left,
                       ),
                     ),
-
                     Align(
                       alignment: Alignment.topLeft,
                       child: Text(
-                        visita.endereco,
+                        visita.getEndereco(),
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -154,7 +154,6 @@ class TileVisita extends StatelessWidget {
                         textAlign: TextAlign.left,
                       ),
                     ),
-
                   ],
                 ),
               ),
@@ -167,7 +166,6 @@ class TileVisita extends StatelessWidget {
 }
 
 class TileCliente extends StatelessWidget {
-
   // final Function? onPressMethod;
 
   final Cliente cliente;
@@ -188,14 +186,12 @@ class TileCliente extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+      margin: const EdgeInsets.symmetric(horizontal: 8),
       child: RaisedButton(
         color: Colors.white,
-        onPressed: () {
-
-        },
+        onPressed: () {},
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
           child: Row(
             children: [
               getIcon(),
@@ -221,9 +217,9 @@ class TileCliente extends StatelessWidget {
 }
 
 class TileProduto extends StatelessWidget {
-  TileProduto({required this.produto});
-
   final Produto produto;
+
+  const TileProduto({Key? key, required this.produto}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -237,9 +233,3 @@ class TileProduto extends StatelessWidget {
     );
   }
 }
-
-
-
-
-
-

@@ -4,15 +4,17 @@ import 'package:forca_de_vendas/common/form_field/formulario.dart';
 import 'package:forca_de_vendas/screens/base/moddel_screen.dart';
 
 class TelaConsultas extends ModdelScreen {
+  const TelaConsultas({Key? key}) : super(key: key);
+
   @override
   Widget getCustomScreen(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Consultas')),
-      drawer: CustomDrawer(),
+      appBar: AppBar(title: const  Text('Consultas')),
+      drawer: const  CustomDrawer(),
       backgroundColor: Colors.white,
       body: ListView(
-        children: [
-          Text('Visitas'),
+        children: <Widget> [
+          const Text('Visitas'),
           FormText(
             saveFunction: (_) {},
             title: 'Data Inicial',

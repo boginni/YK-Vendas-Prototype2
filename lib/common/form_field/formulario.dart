@@ -81,7 +81,7 @@ abstract class FormDropDown extends FormCampo {
 class FormText extends FormCampo {
   FormText(
       {Key? key,
-      required this.saveFunction(String)?,
+      required this.saveFunction(text)?,
       this.initialValue = "",
       mandatoryField = false,
       title})
@@ -113,7 +113,7 @@ class FormText extends FormCampo {
         hintText: '',
       ),
     );
-    ;
+
   }
 }
 
@@ -123,6 +123,7 @@ class FormPass extends FormCampo {
   FormPass({Key? key, mandatoryField, title})
       : super(key: key, mandatoryField: mandatoryField = false, title: title);
 
+  @override
   Widget getCustomField() {
     return TextFormField(
       controller: passController,
@@ -145,7 +146,7 @@ class FormDataNascimento extends FormCampo {
   @override
   Widget getCustomField() {
     // TODO: implement getCustomField
-    return Text('Not Implemented');
+    return const Text('Not Implemented');
   }
 }
 
@@ -153,7 +154,7 @@ class FormSwitch extends FormCampo {
   FormSwitch({Key? key, mandatoryField  = false, title})
       : super(key: key, mandatoryField: mandatoryField, title: title);
 
-  bool _switchValue = true;
+  final bool _switchValue = true;
 
   @override
   Widget getCustomField() {
@@ -169,22 +170,20 @@ class FormSwitch extends FormCampo {
 
   @override
   Widget getContent() {
-    return Container(
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            // crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              getTitleText(),
-              getCustomField(),
-            ],
-          ),
-          SizedBox(
-            height: 32,
-          )
-        ],
-      ),
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          // crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            getTitleText(),
+            getCustomField(),
+          ],
+        ),
+        const SizedBox(
+          height: 32,
+        )
+      ],
     );
   }
 }
@@ -245,7 +244,7 @@ class FormImage extends FormCampo {
   Widget getCustomField() {
     return Text(
       title,
-      style: TextStyle(fontSize: 16),
+      style: const TextStyle(fontSize: 16),
     );
   }
 }

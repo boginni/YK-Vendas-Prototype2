@@ -3,17 +3,19 @@ import 'package:forca_de_vendas/common/custom_drawer/custom_drawer.dart';
 import 'package:forca_de_vendas/screens/base/moddel_screen.dart';
 
 class TelaMensagens extends ModdelScreen {
+  const TelaMensagens({Key? key}) : super(key: key);
+
   @override
   Widget getCustomScreen(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Mensagens'),
+          title: const Text('Mensagens'),
           centerTitle: true,
         ),
-        drawer: CustomDrawer(),
+        drawer: const  CustomDrawer(),
         body: Container(
           color: Colors.white,
-          child: Center(child: Text('Nem uma mensagem')),
+          child: const  Center(child: Text('Nem uma mensagem')),
         ));
   }
 

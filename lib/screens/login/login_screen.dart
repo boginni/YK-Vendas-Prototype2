@@ -4,28 +4,35 @@ import 'package:forca_de_vendas/screens/base/moddel_screen.dart';
 
 class LoginScreen extends ModdelScreen {
 
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passController = TextEditingController();
+  
 
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey =
-      GlobalKey<ScaffoldMessengerState>();
+  const LoginScreen({Key? key}) : super(key: key);
 
 
 
   
   @override
   Widget getCustomScreen(BuildContext context) {
+
+    // final TextEditingController emailController = TextEditingController();
+    // final TextEditingController passController = TextEditingController();
+    // final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+    final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey =
+    GlobalKey<ScaffoldMessengerState>();
+    
     // TODO: implement getCustomScreen
     return ScaffoldMessenger(
       key: scaffoldMessengerKey,
       child: Scaffold(
-        drawer: CustomDrawer(),
+        drawer: const CustomDrawer(),
         appBar: AppBar(
           title: const Text('Entrar'),
           centerTitle: true,
         ),
-        body: Center(
+        body: const Center(
+          child: Text('Removido Temporariamente pra converter referências do firebird'),
+          
           // child: Card(
           //   margin: const EdgeInsets.symmetric(horizontal: 16),
           //   child: Form(

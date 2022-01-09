@@ -1,3 +1,5 @@
+import 'package:brasil_fields/brasil_fields.dart';
+
 abstract class DatabaseObject {
   Map<String, dynamic> toMap();
 }
@@ -8,13 +10,15 @@ class Produto {
 
   Produto({this.nome = '', this.id = 0});
 
-  Map<String, dynamic> toMap(){
+  Map<String, dynamic> toMap() {
     return {'id': id, 'nome': nome};
   }
 }
 
 class Cliente {
-  Cliente(this.nomeFantasia);
+  Cliente();
+
+  int id = 0;
 
   String apelido = "";
   String nomeFantasia = "";
@@ -44,7 +48,28 @@ class Cliente {
 }
 
 class Visita {
+
+  int idPessoa = 0;
   String apelido = "";
   String nome = "";
-  String endereco = "";
+  String logradouro = "";
+  String numero = "";
+  String cep = "";
+  String bairro = "";
+  String cidade = "";
+  String uf = "";
+  String estado = "";
+
+  String getEndereco() {
+
+    var cep = UtilBrasilFields.obterCep(this.cep, ponto: false);
+    
+    return logradouro + " - " + bairro + " - " + cidade + " - " + cep;
+
+  }
+
+
+
+
+
 }

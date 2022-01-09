@@ -9,9 +9,9 @@ import 'package:forca_de_vendas/common/custom_drawer/custom_drawer.dart';
 
 
 class Dog {
-  var id;
-  var name;
-  var age;
+  var id = 0;
+  var name = '';
+  var age = 0;
 
   Dog(this.id, this.name, this.age);
 
@@ -30,6 +30,8 @@ class Dog {
 }
 
 class TelaTesteDogs extends StatelessWidget {
+  const TelaTesteDogs({Key? key}) : super(key: key);
+
   // @override
   // State<StatefulWidget> createState() {
   //   // TODO: implement createState
@@ -47,83 +49,81 @@ class TelaTesteDogs extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Test Screen'),
+        title: const Text('Test Screen'),
         centerTitle: true,
       ),
-      drawer: CustomDrawer(),
+      drawer: const CustomDrawer(),
       backgroundColor: Colors.white,
-      body: Container(
-        child: Form(
-          key: formKey,
-          child: ListView(
-            children: [
-              FlatButton(
-                onPressed: () => getDog(),
-                child: Text('test'),
-                color: Colors.grey,
-              ),
-              FormText(
-                saveFunction: (value) {
-                  doggo.id = int.parse(value);
-                },
-                title: 'ID',
-                mandatoryField: true,
-              ),
-              FormText(
-                saveFunction: (value) {
-                  doggo.name = value;
-                },
-                title: 'NAME',
-                mandatoryField: true,
-              ),
-              FormText(
-                saveFunction: (value) {
-                  doggo.age = int.parse(value);
-                },
-                title: 'AGE',
-                mandatoryField: true,
-              ),
-              FlatButton(
-                onPressed: () {
-                  if (formKey.currentState!.validate()) {
-                    doggo = Dog(0, '', 0);
-                    formKey.currentState!.save();
+      body: Form(
+        key: formKey,
+        child: ListView(
+          children: [
+            FlatButton(
+              onPressed: () => getDog(),
+              child: const Text('test'),
+              color: Colors.grey,
+            ),
+            FormText(
+              saveFunction: (value) {
+                doggo.id = int.parse(value);
+              },
+              title: 'ID',
+              mandatoryField: true,
+            ),
+            FormText(
+              saveFunction: (value) {
+                doggo.name = value;
+              },
+              title: 'NAME',
+              mandatoryField: true,
+            ),
+            FormText(
+              saveFunction: (value) {
+                doggo.age = int.parse(value);
+              },
+              title: 'AGE',
+              mandatoryField: true,
+            ),
+            FlatButton(
+              onPressed: () {
+                if (formKey.currentState!.validate()) {
+                  doggo = Dog(0, '', 0);
+                  formKey.currentState!.save();
 
-                    insertDog(doggo);
-                  }
-                },
-                child: Text('Adicionar'),
-                color: Colors.grey,
-              ),
-              FutureBuilder(
-                future: getDogsWidget(),
-                builder:
-                    (BuildContext context, AsyncSnapshot<List<Dog>> snapshot) {
-                  if (snapshot.hasData) {
-                    return ListView.builder(
-                      physics: ClampingScrollPhysics(),
-                      scrollDirection: Axis.vertical,
-                      shrinkWrap: true,
-                      itemCount: snapshot.data!.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        final dog = snapshot.data![index];
-                        return getDogCard(dog);
-                      },
-                    );
-                  } else {
-                    return Align(
-                      alignment: Alignment.center,
-                      child: SizedBox(
-                        width: 32,
-                        height: 32,
-                        child: CircularProgressIndicator(),
-                      ),
-                    );
-                  }
-                },
-              )
-            ],
-          ),
+                  insertDog(doggo);
+                }
+              },
+              child: const Text('Adicionar'),
+              color: Colors.grey,
+            ),
+            FutureBuilder(
+              future: getDogsWidget(),
+              builder:
+                  (BuildContext context, AsyncSnapshot<List<Dog>> snapshot) {
+                if (snapshot.hasData) {
+                  return ListView.builder(
+                    physics: const ClampingScrollPhysics(),
+                    scrollDirection: Axis.vertical,
+                    shrinkWrap: true,
+                    itemCount: snapshot.data!.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      final dog = snapshot.data![index];
+                      return getDogCard(dog);
+                    },
+                  );
+                } else {
+                  return const Align(
+                    alignment: Alignment.center,
+                    child: SizedBox(
+                      width: 32,
+                      height: 32,
+                      child:  CircularProgressIndicator(),
+                    ),
+                  );
+                }
+              },
+            )
+          ],
         ),
       ),
     );
@@ -148,7 +148,7 @@ Widget getDogCard(Dog dog) {
   return Card(
     child: Row(
       children: [
-        Icon(
+        const Icon(
           Icons.person_outline,
           size: 32,
         ),
@@ -156,7 +156,7 @@ Widget getDogCard(Dog dog) {
           children: [
             Text(
               dog.name + ', ' + dog.id.toString(),
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
             Text('Age: ' + dog.age.toString())
           ],
@@ -191,7 +191,7 @@ void getDog() async {
   int size = dogList.length;
 
   if (size > 0) {
-    print(dogList.first);
+    // print(dogList.first);
   }
 }
 

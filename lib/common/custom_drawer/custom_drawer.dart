@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'drawer_tile.dart';
 
 class CustomDrawer extends StatelessWidget {
+  const CustomDrawer({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -50,12 +52,6 @@ class CustomDrawer extends StatelessWidget {
             page: i++,
           ),
           DrawerTile(
-            iconData: Icons.person_add_outlined,
-            title: 'Novo Cliente',
-            page: i++,
-          ),
-
-          DrawerTile(
             iconData: CupertinoIcons.cube_box,
             title: 'Produtos',
             page: i++,
@@ -84,7 +80,6 @@ class CustomDrawer extends StatelessWidget {
             title: 'Consultas',
             page: i++,
           ),
-
           //Painel de Gestão
           DrawerTile(
             iconData: Icons.insert_chart_outlined,

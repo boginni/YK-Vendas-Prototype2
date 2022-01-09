@@ -1,25 +1,32 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:forca_de_vendas/common/custom_drawer/custom_drawer.dart';
 import 'package:forca_de_vendas/common/form_field/formulario.dart';
-import 'package:forca_de_vendas/models/database_local.dart';
 import 'package:forca_de_vendas/models/database_objects/database_objects.dart';
 import 'package:forca_de_vendas/screens/base/moddel_screen.dart';
-import 'package:sqflite/sqflite.dart';
+import 'package:forca_de_vendas/screens/clientes/tela_confirmar_novo_cliente.dart';
 
 class TelaNovoCliente extends ModdelScreen {
-  final cliente = Cliente('teste');
 
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  static const routeName = '/telaNovoCliente';
+
+  const TelaNovoCliente({Key? key}) : super(key: key);
 
   @override
   Widget getCustomScreen(BuildContext context) {
+
+    final cliente = Cliente();
+    final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('Novo Cliente'),
+        title: const Text('Novo Cliente'),
         centerTitle: true,
+        leading: BackButton(
+          onPressed: () {
+            Navigator.of(context).pop(context);
+          },
+        ),
       ),
-      drawer: CustomDrawer(),
       backgroundColor: Colors.white,
       body: Center(
         child: Form(
@@ -166,9 +173,11 @@ class TelaNovoCliente extends ModdelScreen {
       floatingActionButton: ElevatedButton(
         onPressed: () {
           if (formKey.currentState!.validate()) {
+            formKey.currentState!.save();
+
             // print("Campos Validados");
-            insertCliente(cliente);
-            //Navigator.of(context).pushNamed('/telaConfirmarNovoCliente');
+            // insertCliente(cliente);
+            Navigator.of(context).pushNamed(TelaConfirmarCliente.routeName, arguments: cliente);
           }
         },
         child: const Text(
@@ -180,16 +189,3 @@ class TelaNovoCliente extends ModdelScreen {
   }
 }
 
-
-Future<void> insertCliente(Cliente x) async {
-  final db = await DatabaseLocal.getDatabase();
-
-  await db.insert(
-    'clientes',
-    {
-      'id': 1,
-      'nome': x.nomeFantasia
-    },
-    conflictAlgorithm: ConflictAlgorithm.replace,
-  );
-}

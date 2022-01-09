@@ -4,6 +4,8 @@ import 'package:provider/src/provider.dart';
 
 abstract class ModdelScreen extends StatelessWidget {
 
+  const ModdelScreen({Key? key}) : super(key: key);
+
   Widget getCustomScreen(BuildContext context);
 
   @override

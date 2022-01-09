@@ -5,14 +5,16 @@ import 'package:forca_de_vendas/common/custom_drawer/custom_drawer.dart';
 import 'package:forca_de_vendas/screens/base/moddel_screen.dart';
 
 class TelaRotas extends ModdelScreen {
+  const TelaRotas({Key? key}) : super(key: key);
+
   @override
   Widget getCustomScreen(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Novo Cliente'),
+          title: const Text('Novo Cliente'),
           centerTitle: true,
         ),
-        drawer: CustomDrawer(),
+        drawer: const CustomDrawer(),
         body: Container(
           color: Colors.white,
           child: ListView(
@@ -51,12 +53,14 @@ class TelaRotas extends ModdelScreen {
 }
 
 class RotaTile extends StatelessWidget {
-  const RotaTile({Key? key, this.nome}) : super(key: key);
+  const RotaTile({Key? key, this.nome = ""}) : super(key: key);
 
-  final nome;
+  final String nome ;
   static int curMap = 0;
 
   static Widget getMapIcon() {
+
+
     return Icon(
       ++curMap % 2 != 0 ? CupertinoIcons.map : CupertinoIcons.map_fill,
       size: 32,
@@ -67,17 +71,17 @@ class RotaTile extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Column(
-      children: [
+      children: <Widget>[
         Row(
           children: [
             getMapIcon(),
-            SizedBox(
+            const SizedBox(
               width: 12,
             ),
             Flexible(
               child: Text(
                 nome,
-                style: TextStyle(
+                style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                     color: Colors.cyan),
@@ -85,7 +89,7 @@ class RotaTile extends StatelessWidget {
             ),
           ],
         ),
-        Divider(
+        const Divider(
           color: Colors.grey,
         ),
       ],

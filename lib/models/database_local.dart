@@ -1,32 +1,70 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
+import 'database_objects/database_objects.dart';
+
 class DatabaseLocal {
-  static final int version = 2;
+  static const int version = 2;
 
   static Future<Database> getDatabase() async {
+    // print(await getDatabasesPath());
+
     return await openDatabase(
-      join(await getDatabasesPath(), 'local.db'),
-      // onOpen: (db) => creation(db, version),
-      onCreate: (db, version) => creation(db, version),
+      join(await getDatabasesPath(), 'banco.db'),
       version: version,
     );
   }
+}
 
-  static Future<void> creation(db, version) async {
-    print('recreating database');
+class BufferTranslator {
+  static Future<List<Visita>> getVisitas() async {
 
-    db.execute(
-        "CREATE TABLE clientes ( id INTEGER  PRIMARY KEY  NOT NULL, nome  VARCHAR (100) NOT NULL, apelido VARCHAR (100), cpf INTEGER (11)  UNIQUE, cnpj  INTEGER (14)  UNIQUE, rg VARCHAR (100), observacao TEXT, bairro  VARCHAR (32), logradouro VARCHAR (64), numero  VARCHAR (16) );");
-    db.execute(
-        'CREATE TABLE produtos ( id INTEGER  PRIMARY KEY NOT NULL, nome VARCHAR (100), categoria INTEGER);');
-    db.execute(
-        'CREATE TABLE rotas ( id INTEGER  PRIMARY KEY NOT NULL, nome VARCHAR (100) );');
-    db.execute(
-        'CREATE TABLE visita_cab ( id INTEGER PRIMARY KEY NOT NULL, id_cliente INTEGER NOT NULL REFERENCES clientes (id), id_rota INTEGER REFERENCES rotas (id) NOT NULL, id_status  INTEGER REFERENCES status (id) NOT NULL);');
-    db.execute(
-        'CREATE TABLE status ( id INTEGER PRIMARY KEY NOT NULL, descricao TEXT NOT NULL UNIQUE);');
-    db.execute("INSERT INTO status (id, descricao) VALUES (1, 'ATIVO');");
-    db.execute("INSERT INTO status (id, descricao) VALUES (2, 'INATIVO');");
+    final db = await DatabaseLocal.getDatabase();
+    final List<Map<String, dynamic>> maps = await db.query('VW_VISITA');
+
+
+    final visitas = List.generate(maps.length, (i) {
+      Visita v = Visita();
+
+      v.idPessoa = maps[i]['ID_PESSOA'];
+      v.nome = maps[i]['NOME'];
+      v.logradouro = maps[i]['LOGRADOURO'];
+      v.numero = maps[i]['NUMERO'];
+      v.cep = maps[i]['CEP'];
+      v.bairro = maps[i]['BAIRRO'];
+      v.cidade = maps[i]['CIDADE'];
+      v.uf = maps[i]['UF'];
+      v.estado = maps[i]['ESTADO'];
+
+      return v;
+    }
+
+    );
+
+    return visitas;
+
+  }
+
+  static Future<List<Cliente>> getClientes() async {
+    final db = await DatabaseLocal.getDatabase();
+    final List<Map<String, dynamic>> maps = await db.query('clientes');
+
+    return List.generate(maps.length, (i) {
+      Cliente c = Cliente();
+
+      c.apelido = maps[i]['NOME'];
+
+      return c;
+    });
+  }
+
+  Future<void> insertCliente(Cliente x) async {
+    final db = await DatabaseLocal.getDatabase();
+
+    await db.insert(
+      'clientes',
+      {'ID': x.id, 'NOME': x.nomeFantasia},
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
   }
 }

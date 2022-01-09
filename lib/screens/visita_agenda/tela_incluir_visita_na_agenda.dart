@@ -5,14 +5,17 @@ import 'package:forca_de_vendas/common/form_field/formulario.dart';
 import 'package:forca_de_vendas/screens/base/moddel_screen.dart';
 
 class TelaIncluirVisitaAgenda extends ModdelScreen {
+
+  const TelaIncluirVisitaAgenda({Key? key}) : super(key: key);
+
   @override
   Widget getCustomScreen(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Incluir Visita na Agenda'),
+        title: const Text('Incluir Visita na Agenda'),
       ),
       backgroundColor: Colors.white,
-      drawer: CustomDrawer(),
+      drawer: const CustomDrawer(),
       body: ListView(
         children: [
           FormText(saveFunction: (_) {}, title: 'Cliente'),
