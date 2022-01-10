@@ -5,15 +5,15 @@ import 'package:flutter/rendering.dart';
 
 abstract class FormCampo extends StatelessWidget {
   //({Key? key, mandatoryField, title}) : super(key: key, mandatoryField: mandatoryField, title: title);
-  FormCampo({Key? key, required this.title, this.mandatoryField = false})
+  const FormCampo({Key? key, required this.title, this.mandatoryField = false})
       : super(key: key);
 
-  String title;
-  bool mandatoryField;
+  final String title;
+  final bool mandatoryField;
 
-  double fontSize = 16;
-  double defaultBottonSpace = 32;
-  double defaultSideSpace = 8;
+  final double fontSize = 16;
+  final double defaultBottonSpace = 32;
+  final double defaultSideSpace = 8;
 
   Widget getTitleText() {
     return Row(

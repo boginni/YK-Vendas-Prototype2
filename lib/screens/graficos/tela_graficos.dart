@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
 import 'package:forca_de_vendas/common/custom_drawer/custom_drawer.dart';
+import 'package:forca_de_vendas/common/tiles/default_tiles.dart';
+import 'package:forca_de_vendas/models/database_local.dart';
+import 'package:forca_de_vendas/models/database_objects/database_objects.dart';
 import 'package:forca_de_vendas/screens/base/moddel_screen.dart';
 
 class TelaGraficos extends ModdelScreen {
@@ -10,72 +12,28 @@ class TelaGraficos extends ModdelScreen {
   @override
   Widget getCustomScreen(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: const  Text('Gráficos')),
+        appBar: AppBar(title: const Text('Gráficos')),
         drawer: const CustomDrawer(),
-        backgroundColor: Colors.white,
-        body: Container(
-          color: Colors.white,
-          child: ListView(
-            children: const <Widget>[
-              TileGraph(
-                nome: 'Cerv 1/1',
-              ),
-              TileGraph(
-                nome: 'Quantidade e Total Liquido R\$ Por itens : Descrição',
-              ),
-              TileGraph(
-                nome:
-                    'Quantidade Meta e Meta alcançada Por Outros Cadastros : Descrição',
-              ),
-              TileGraph(
-                nome: 'Valor Venda e Valor comisssão',
-              ),
-            ],
-          ),
+        body: FutureBuilder(
+          future: BufferTranslator.getGraphList(),
+          builder: (BuildContext context, AsyncSnapshot<List<Graph>> snapshot) {
+            if (snapshot.hasData) {
+              List<Graph> itens = snapshot.data!;
+
+              if (itens.isEmpty) {
+                return const Text("Sem dados pra carregar");
+              }
+
+              return ListView.builder(
+                itemCount: itens.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return TileGraph(itens[index]);
+                },
+              );
+            }
+
+            return const Text("Carregando dados");
+          },
         ));
-  }
-}
-
-class TileGraph extends StatelessWidget {
-  const TileGraph({Key? key, this.nome = ""}) : super(key: key);
-
-  final String nome;
-  static int curMap = 0;
-
-  static Widget getMapIcon() {
-    return Icon(
-        ++curMap % 2 != 0
-            ? CupertinoIcons.graph_circle
-            : CupertinoIcons.graph_circle_fill,
-        size: 32);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    return Column(
-      children: [
-        Row(
-          children: [
-            getMapIcon(),
-            const SizedBox(
-              width: 8,
-            ),
-            Flexible(
-              child: Text(
-                nome,
-                style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.cyan),
-              ),
-            ),
-          ],
-        ),
-        const Divider(
-          color: Colors.grey,
-        ),
-      ],
-    );
   }
 }

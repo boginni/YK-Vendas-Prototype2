@@ -48,7 +48,6 @@ class Cliente {
 }
 
 class Visita {
-
   int idPessoa = 0;
   String apelido = "";
   String nome = "";
@@ -61,15 +60,18 @@ class Visita {
   String estado = "";
 
   String getEndereco() {
-
     var cep = UtilBrasilFields.obterCep(this.cep, ponto: false);
-    
+
     return logradouro + " - " + bairro + " - " + cidade + " - " + cep;
-
   }
+}
 
+class Rota {
+  String nome = '';
+  int id = 0;
+}
 
-
-
-
+class Graph {
+  int id = 0;
+  String nome = '';
 }

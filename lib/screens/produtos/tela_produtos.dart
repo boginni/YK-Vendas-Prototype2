@@ -5,6 +5,7 @@ import 'package:forca_de_vendas/common/custom_drawer/custom_drawer.dart';
 import 'package:forca_de_vendas/common/tiles/default_tiles.dart';
 import 'package:forca_de_vendas/models/database_local.dart';
 import 'package:forca_de_vendas/models/database_objects/database_objects.dart';
+import 'package:forca_de_vendas/screens/produtos/tela_novo_produto.dart';
 import 'package:sqflite/sqflite.dart';
 
 class TelaProdutos extends StatelessWidget {
@@ -15,6 +16,16 @@ class TelaProdutos extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Produtos'),
+        actions: <Widget>[
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+                primary: Theme.of(context).primaryColor),
+            onPressed: () {
+              Navigator.of(context).pushNamed(TelaNovoProduto.routeName);
+            },
+            child: const Icon(CupertinoIcons.add_circled_solid),
+          )
+        ],
         // leading: BackButton(
         //   onPressed: () {
         //     Navigator.of(context).pop(context);
@@ -22,54 +33,62 @@ class TelaProdutos extends StatelessWidget {
         // ),
       ),
       drawer: const CustomDrawer(),
-      backgroundColor: Colors.white,
       body: ListView(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            // crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Align(
-                alignment: Alignment.centerLeft,
-                child: RaisedButton(
-                  onPressed: () {},
-                  color: Colors.white,
-                  child: const Center(
-                       child: Icon(
-                    CupertinoIcons.left_chevron,
-                    size: 32,
-                  )),
+          Container(
+            margin: const EdgeInsets.only(bottom: 24),
+            color: Colors.white,
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  // crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        // color: Colors.white,
+                        child: const Center(
+                            child: Icon(
+                          CupertinoIcons.left_chevron,
+                          size: 32,
+                        )),
+                      ),
+                    ),
+                    const Align(
+                      alignment: Alignment.center,
+                      child: Text(
+                        'Categoria',
+                        style: TextStyle(fontSize: 18),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: ElevatedButton(
+                        // color: Colors.white,
+                        onPressed: () {},
+                        child: const Center(
+                            child: Icon(
+                          CupertinoIcons.right_chevron,
+                          size: 32,
+                        )),
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-              const Align(
-                alignment: Alignment.center,
-                child: Text(
-                  'Categoria',
-                  style: TextStyle(fontSize: 18),
+
+                const SizedBox(
+                  height: 8,
                 ),
-              ),
-               Align(
-                alignment: Alignment.centerRight,
-                child: RaisedButton(
-                  color: Colors.white,
-                  onPressed: () {},
-                  child: const Center(
-                      child: Icon(
-                    CupertinoIcons.right_chevron,
-                    size: 32,
-                  )),
-                ),
-              ),
-            ],
-          ),
-          const Divider(),
-          const SizedBox(
-            height: 48,
+                const Divider(),
+              ],
+            ),
           ),
           FutureBuilder(
             future: getProdutos(),
-            builder: (BuildContext context,
-                AsyncSnapshot<List<Produto>> snapshot) {
+            builder:
+                (BuildContext context, AsyncSnapshot<List<Produto>> snapshot) {
               if (snapshot.hasData) {
                 List<Produto> produtos = snapshot.data!;
 
@@ -87,15 +106,6 @@ class TelaProdutos extends StatelessWidget {
             },
           ),
         ],
-      ),
-      floatingActionButton: ElevatedButton(
-        onPressed: () {
-          Navigator.of(context).pushNamed('/telaNovoProduto');
-        },
-        child: const Text(
-          "Adicionar",
-          style: TextStyle(fontSize: 18),
-        ),
       ),
     );
   }

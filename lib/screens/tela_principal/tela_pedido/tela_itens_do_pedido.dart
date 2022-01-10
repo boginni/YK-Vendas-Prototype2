@@ -6,8 +6,6 @@ import 'package:forca_de_vendas/models/database_objects/database_objects.dart';
 import 'package:sqflite/sqflite.dart';
 
 class TelaItensPedido extends StatelessWidget {
-
-
   static const routeName = '/telaItensPedido';
 
   const TelaItensPedido({Key? key}) : super(key: key);
@@ -32,14 +30,15 @@ class TelaItensPedido extends StatelessWidget {
             children: [
               Align(
                 alignment: Alignment.centerLeft,
-                child: RaisedButton(
+                child: ElevatedButton(
                   onPressed: () {},
-                  color: Colors.white,
                   child: const Center(
-                      child: Icon(
-                    CupertinoIcons.left_chevron,
-                    size: 32,
-                  )),
+                    child: Icon(
+                      CupertinoIcons.left_chevron,
+                      size: 32,
+                      color: Colors.grey,
+                    ),
+                  ),
                 ),
               ),
               const Align(
@@ -49,29 +48,31 @@ class TelaItensPedido extends StatelessWidget {
                   style: TextStyle(fontSize: 18),
                 ),
               ),
-               Align(
+              Align(
                 alignment: Alignment.centerRight,
-                child: RaisedButton(
-                  color: Colors.white,
+                child: ElevatedButton(
                   onPressed: () {
                     debugPrint('not implemented');
                   },
                   child: const Center(
-                      child: Icon(
-                    CupertinoIcons.right_chevron,
-                    size: 32,
-                  )),
+                    child: Icon(
+                      CupertinoIcons.right_chevron,
+                      size: 32,
+                      color: Colors.grey,
+                    ),
+                  ),
                 ),
               ),
             ],
           ),
           const Divider(),
-          const SizedBox(height: 48,),
-
+          const SizedBox(
+            height: 48,
+          ),
           FutureBuilder(
             future: getProdutos(),
-            builder: (BuildContext context,
-                AsyncSnapshot<List<Produto>> snapshot) {
+            builder:
+                (BuildContext context, AsyncSnapshot<List<Produto>> snapshot) {
               if (snapshot.hasData) {
                 List<Produto> produtos = snapshot.data!;
 
@@ -81,12 +82,12 @@ class TelaItensPedido extends StatelessWidget {
                   itemBuilder: (BuildContext context, int index) {
                     final Produto curProduto = produtos[index];
 
-
                     return TileButton(
                       icon: CupertinoIcons.cube_box,
                       title: curProduto.nome,
                       onPressMethod: () {
-                        Navigator.of(context).pushNamed('/telaItemPedido', arguments: curProduto);
+                        Navigator.of(context).pushNamed('/telaItemPedido',
+                            arguments: curProduto);
                       },
                     );
                   },
@@ -96,25 +97,17 @@ class TelaItensPedido extends StatelessWidget {
               }
             },
           ),
-
         ],
       ),
     );
   }
 }
 
-
 Future<List<Produto>> getProdutos() async {
   final Database db = await DatabaseLocal.getDatabase();
   final List<Map<String, dynamic>> maps = await db.query('produtos');
 
   return List.generate(maps.length, (i) {
-    return Produto(
-        id: maps[i]['id'],
-        nome: maps[i]['nome']
-    );
-
+    return Produto(id: maps[i]['id'], nome: maps[i]['nome']);
   });
-
-
 }

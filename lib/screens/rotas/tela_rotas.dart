@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
 import 'package:forca_de_vendas/common/custom_drawer/custom_drawer.dart';
+import 'package:forca_de_vendas/common/tiles/default_tiles.dart';
+import 'package:forca_de_vendas/models/database_local.dart';
+import 'package:forca_de_vendas/models/database_objects/database_objects.dart';
 import 'package:forca_de_vendas/screens/base/moddel_screen.dart';
 
 class TelaRotas extends ModdelScreen {
@@ -11,88 +13,64 @@ class TelaRotas extends ModdelScreen {
   Widget getCustomScreen(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Novo Cliente'),
+          title: const Text('Rotas'),
           centerTitle: true,
         ),
         drawer: const CustomDrawer(),
-        body: Container(
-          color: Colors.white,
-          child: ListView(
-            children: const <Widget>[
-              RotaTile(
-                nome: 'ROTA FLORATA',
-              ),
-              RotaTile(
-                nome: 'JOELSON',
-              ),
-              RotaTile(
-                nome: 'TERCA-FEIRA 204',
-              ),
-              RotaTile(
-                nome: 'Rota Elton',
-              ),
-              RotaTile(
-                nome: 'INATIVO',
-              ),
-              RotaTile(
-                nome: 'QUARTA-FEIRA 201',
-              ),
-              RotaTile(
-                nome: 'TERCA-FEIRA 205',
-              ),
-              RotaTile(
-                nome: 'TERCA-FEIRA 201',
-              ),
-              RotaTile(
-                nome: 'ROTA HUMBERTO',
-              ),
-            ],
-          ),
+        body: FutureBuilder(
+          future: BufferTranslator.getRotas(),
+          builder: (BuildContext context, AsyncSnapshot<List<Rota>> snapshot) {
+            if (snapshot.hasData) {
+
+              List<Rota> list = snapshot.data!;
+
+              if(list.isEmpty){
+                return const Text('Sem dados');
+              }
+
+              return ListView.builder(
+                itemCount: list.length,
+                itemBuilder: (BuildContext context, int i) {
+                  return TileRota(list[i]);
+                },
+              );
+            } else {
+              return const Text("Carregando Dados");
+            }
+
+
+
+          },
         ));
   }
 }
 
-class RotaTile extends StatelessWidget {
-  const RotaTile({Key? key, this.nome = ""}) : super(key: key);
-
-  final String nome ;
-  static int curMap = 0;
-
-  static Widget getMapIcon() {
-
-
-    return Icon(
-      ++curMap % 2 != 0 ? CupertinoIcons.map : CupertinoIcons.map_fill,
-      size: 32,
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    return Column(
-      children: <Widget>[
-        Row(
-          children: [
-            getMapIcon(),
-            const SizedBox(
-              width: 12,
-            ),
-            Flexible(
-              child: Text(
-                nome,
-                style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.cyan),
-              ),
-            ),
-          ],
-        ),
-        const Divider(
-          color: Colors.grey,
-        ),
-      ],
-    );
-  }
+get() {
+  // TileRota(
+  //   nome: 'ROTA FLORATA',
+  // ),
+  // TileRota(
+  // nome: 'JOELSON',
+  // ),
+  // TileRota(
+  // nome: 'TERCA-FEIRA 204',
+  // ),
+  // TileRota(
+  // nome: 'Rota Elton',
+  // ),
+  // TileRota(
+  // nome: 'INATIVO',
+  // ),
+  // TileRota(
+  // nome: 'QUARTA-FEIRA 201',
+  // ),
+  // TileRota(
+  // nome: 'TERCA-FEIRA 205',
+  // ),
+  // TileRota(
+  // nome: 'TERCA-FEIRA 201',
+  // ),
+  // TileRota(
+  // nome: 'ROTA HUMBERTO',
+  // ),
 }

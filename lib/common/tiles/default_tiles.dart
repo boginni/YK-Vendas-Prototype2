@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:forca_de_vendas/common/miscellaneous/custom_widgets.dart';
 import 'package:forca_de_vendas/models/database_objects/database_objects.dart';
+import 'package:forca_de_vendas/screens/produtos/tela_novo_produto.dart';
 import 'package:forca_de_vendas/screens/tela_principal/tela_visita.dart';
 
 class TileButton extends StatelessWidget {
@@ -14,20 +16,22 @@ class TileButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-      child: RaisedButton(
-        color: Colors.white,
+      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+      child: TextButton(
+        // color: Colors.white,
         onPressed: () {
           onPressMethod!();
         },
         child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
           child: Row(
             children: [
-              Icon(
-                icon,
-                size: 48,
-              ),
+              IconTheme(
+                  data: Theme.of(context).primaryIconTheme,
+                  child: Icon(
+                    icon,
+                    size: 48,
+                  )),
               const SizedBox(
                 width: 8,
               ),
@@ -89,33 +93,25 @@ class TileVisita extends StatelessWidget {
 
   const TileVisita({Key? key, required this.visita}) : super(key: key);
 
-  static int countIcon = 0;
-
-  static Widget getMapIcon() {
-    return Icon(
-      ++countIcon % 2 != 0
-          ? CupertinoIcons.doc_text
-          : CupertinoIcons.doc_text_fill,
-      size: 64,
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-      child: RaisedButton(
-        color: Colors.white,
+      child: TextButton(
         onPressed: () {
           Navigator.of(context)
               .pushNamed(TelaVisita.routeName, arguments: visita);
         },
         child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 0),
           child: Row(
             children: [
-              getMapIcon(),
+              const IconDynamic(
+                primary: CupertinoIcons.doc_text,
+                secondary: CupertinoIcons.doc_text_fill,
+                size: 64,
+              ),
               const SizedBox(
                 width: 8,
               ),
@@ -174,34 +170,28 @@ class TileCliente extends StatelessWidget {
 
   const TileCliente({Key? key, required this.cliente}) : super(key: key);
 
-  static Widget getIcon() {
-    return Icon(
-      ++countIcon % 2 != 0
-          ? CupertinoIcons.doc_text
-          : CupertinoIcons.doc_text_fill,
-      size: 48,
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 8),
-      child: RaisedButton(
-        color: Colors.white,
+      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      child: ElevatedButton(
         onPressed: () {},
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
           child: Row(
             children: [
-              getIcon(),
+              const IconDynamic(
+                primary: CupertinoIcons.person_fill,
+                secondary: CupertinoIcons.person,
+                size: 48,
+              ),
               const SizedBox(
                 width: 8,
               ),
               Flexible(
                 child: Align(
                   alignment: Alignment.topLeft,
-                  child: Text(cliente.nomeFantasia,
+                  child: Text(cliente.apelido,
                       style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -228,8 +218,134 @@ class TileProduto extends StatelessWidget {
       icon: CupertinoIcons.cube_box,
       title: produto.nome,
       onPressMethod: () {
-        Navigator.of(context).pushNamed('/telaNovoProduto');
+        Navigator.of(context).pushNamed(TelaNovoProduto.routeName);
       },
+    );
+  }
+}
+
+class TileRota extends StatelessWidget {
+  const TileRota(this.rota, {Key? key}) : super(key: key);
+  final Rota rota;
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+      child: TextButton(
+        onPressed: () {},
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+          child: Column(
+            children: <Widget>[
+              Row(
+                children: [
+                  const IconDynamic(
+                    primary: CupertinoIcons.map,
+                    secondary: CupertinoIcons.map_fill,
+                    size: 32,
+                  ),
+                  const SizedBox(
+                    width: 12,
+                  ),
+                  Flexible(
+                    child: Text(
+                      rota.nome,
+                      style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.cyan),
+                    ),
+                  ),
+                ],
+              ),
+              // const Divider(
+              //   color: Colors.grey,
+              // ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+
+
+class TileGraph extends StatelessWidget {
+  const TileGraph(this.graph, {Key? key}) : super(key: key);
+
+  final Graph graph;
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+
+    const icon = IconDynamic(
+      primary: CupertinoIcons.graph_circle,
+      secondary: CupertinoIcons.graph_circle_fill,
+      size: 24,
+    );
+
+    onClick(){
+      debugPrint('test');
+    }
+
+    return TilePlain(icon: icon, name: graph.nome, onClickFunction: onClick,);
+  }
+}
+
+
+
+
+class TilePlain extends StatelessWidget {
+  const TilePlain({
+    Key? key,
+    required this.icon,
+    required this.name,
+    required this.onClickFunction,
+  }) : super(key: key);
+
+  final IconDynamic icon;
+  final String name;
+  final Function onClickFunction;
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+      child: TextButton(
+        onPressed: () => onClickFunction,
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+          child: Column(
+            children: <Widget>[
+              Row(
+                children: <Widget>[
+                  icon,
+                  const SizedBox(
+                    width: 12,
+                  ),
+                  Flexible(
+                    child: Text(
+                      name,
+                      style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.cyan),
+                    ),
+                  ),
+                ],
+              ),
+              // const Divider(
+              //   color: Colors.grey,
+              // ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

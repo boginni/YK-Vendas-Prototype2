@@ -18,6 +18,7 @@ class TelaClientes extends StatelessWidget {
         title: const Text('Clientes'),
         actions: <Widget>[
           ElevatedButton(
+            style: ElevatedButton.styleFrom(primary: Theme.of(context).primaryColor),
             onPressed: () {
               Navigator.of(context).pushNamed(TelaNovoCliente.routeName);
             },
@@ -25,7 +26,6 @@ class TelaClientes extends StatelessWidget {
           )
         ],
       ),
-      backgroundColor: Colors.white,
       drawer: const CustomDrawer(),
       body: FutureBuilder(
         future: BufferTranslator.getClientes(),

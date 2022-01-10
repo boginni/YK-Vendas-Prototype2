@@ -58,10 +58,9 @@ class TelaTesteDogs extends StatelessWidget {
         key: formKey,
         child: ListView(
           children: [
-            FlatButton(
+            TextButton(
               onPressed: () => getDog(),
               child: const Text('test'),
-              color: Colors.grey,
             ),
             FormText(
               saveFunction: (value) {
@@ -84,7 +83,7 @@ class TelaTesteDogs extends StatelessWidget {
               title: 'AGE',
               mandatoryField: true,
             ),
-            FlatButton(
+            TextButton(
               onPressed: () {
                 if (formKey.currentState!.validate()) {
                   doggo = Dog(0, '', 0);
@@ -93,8 +92,7 @@ class TelaTesteDogs extends StatelessWidget {
                   insertDog(doggo);
                 }
               },
-              child: const Text('Adicionar'),
-              color: Colors.grey,
+              child: const Text('Adicionar')
             ),
             FutureBuilder(
               future: getDogsWidget(),

@@ -32,40 +32,67 @@ class TestApp extends StatelessWidget {
   }
 }
 
+const Map<String, Color> myColors = {
+  '1': Color.fromARGB(255, 4, 125, 141),
+  '2': Color.fromARGB(255, 220, 20, 60),
+  '3': Color.fromARGB(255, 215, 215, 215),
+  '4': Colors.blueAccent
+};
+
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+
+
+    final primaryColor = myColors['4'];
+    final Color secondaryColor = myColors['3']!;
+
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
+        debugShowCheckedModeBanner: true,
         title: "Forca de vendas",
         theme: ThemeData(
-          primaryColor: const Color.fromARGB(255, 4, 125, 141),
-          scaffoldBackgroundColor: const Color.fromARGB(255, 4, 125, 141),
+          primaryColor: primaryColor,
+          scaffoldBackgroundColor: secondaryColor,
           visualDensity: VisualDensity.adaptivePlatformDensity,
-          appBarTheme: const AppBarTheme(elevation: 0),
+
+          primaryIconTheme: const IconThemeData(color: Colors.black, opacity: 255),
+
+          appBarTheme: AppBarTheme(
+            elevation: 0,
+            backgroundColor: primaryColor,
+            // iconTheme: const IconThemeData(color: Colors.black),
+          ),
+
+          elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ElevatedButton.styleFrom(primary: Colors.white, ),
+          ),
+
+          textButtonTheme: TextButtonThemeData(
+            style: ElevatedButton.styleFrom(primary: Colors.white, ),
+          ),
+
         ),
         routes: {
           TelaVisita.routeName: (context) => const TelaVisita(),
           TelaChegadaCliente.routeName: (context) => const TelaChegadaCliente(),
           TelaPedido.routeName: (context) => const TelaPedido(),
           TelaTotaisPedido.routeName: (context) => const TelaTotaisPedido(),
-          TelaDadosEntrega.routeName: (context) =>const  TelaDadosEntrega(),
-          TelaItensPedido.routeName: (context) =>const  TelaItensPedido(),
+          TelaDadosEntrega.routeName: (context) => const TelaDadosEntrega(),
+          TelaItensPedido.routeName: (context) => const TelaItensPedido(),
           TelaTabelaPreco.routeName: (context) => const TelaTabelaPreco(),
-          TelaVisitaRealizada.routeName: (context) => const TelaVisitaRealizada(),
+          TelaVisitaRealizada.routeName: (context) =>
+              const TelaVisitaRealizada(),
           TelaItemPedido.routeName: (context) => const TelaItemPedido(),
-          TelaConfirmarCliente.routeName: (context) => const TelaConfirmarCliente(),
+          TelaConfirmarCliente.routeName: (context) =>
+              const TelaConfirmarCliente(),
           TelaNovoProduto.routeName: (context) => const TelaNovoProduto(),
           TelaNovoCliente.routeName: (context) => const TelaNovoCliente(),
           BaseScreen.routeName: (context) => const BaseScreen(),
         },
-
         initialRoute: '/base',
-
         onGenerateRoute: (settings) {
-
           return MaterialPageRoute(builder: (_) => const BaseScreen());
 
           // switch (settings.name) {
@@ -95,8 +122,6 @@ class MyApp extends StatelessWidget {
           //   default:
           //
           // }
-        }
-
-        );
+        });
   }
 }

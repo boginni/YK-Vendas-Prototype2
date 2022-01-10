@@ -34,7 +34,7 @@ class TelaPrincipal extends ModdelScreen{
           )
         ],
       ),
-      backgroundColor: Colors.grey[50],
+
       drawer: const CustomDrawer(),
       body: FutureBuilder(
         future: BufferTranslator.getVisitas(),
