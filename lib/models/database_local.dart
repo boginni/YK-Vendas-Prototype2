@@ -1,3 +1,4 @@
+import 'package:flutter/widgets.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -19,11 +20,29 @@ class DatabaseLocal {
     final db = await DatabaseLocal.getDatabase();
 
     await db.insert(
-      'clientes',
+      'CB_PESSOA',
       {'ID': x.id, 'NOME': x.nomeFantasia},
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
+
+
+  static Future<void> insertProduto(Produto x, onSuccess, onFail) async {
+    try {
+      final db = await getDatabase();
+      await db.insert(
+        'CP_PRODUTO',
+        x.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace,
+      );
+
+      onSuccess();
+    } catch (e) {
+      onFail();
+    }
+  }
+
+
 }
 
 class BufferTranslator {
@@ -52,7 +71,7 @@ class BufferTranslator {
 
   static Future<List<Cliente>> getClientes() async {
     final db = await DatabaseLocal.getDatabase();
-    final List<Map<String, dynamic>> maps = await db.query('clientes');
+    final List<Map<String, dynamic>> maps = await db.query('CB_PESSOA');
 
     return List.generate(maps.length, (i) {
       Cliente c = Cliente();
@@ -94,5 +113,49 @@ class BufferTranslator {
       return g;
     });
   }
+
+
+  static Future<List<Produto>> getProdutoList() async {
+    final Database db = await DatabaseLocal.getDatabase();
+    final List<Map<String, dynamic>> maps = await db.query('CP_PRODUTO');
+
+    return List.generate(maps.length, (i) {
+      return Produto(id: maps[i]['ID'], nome: maps[i]['NOME']);
+    });
+  }
+
+  static Future<Produto> getProdutoDet(int id) async {
+
+    String args = "VW_PRODUTO_DET.ID = ?";
+    List<int> param= [id];
+
+    final Database db = await DatabaseLocal.getDatabase();
+    final List<Map<String, dynamic>> maps = await db.query('VW_PRODUTO_DET', where: args, whereArgs: param);
+
+    return List.generate(maps.length, (i) {
+
+
+      final p = Produto(id: maps[i]['ID'], nome: maps[i]['NOME']);
+      p.grupo = maps[i]['GRUPO'];
+      p.subGrupo = maps[i]['SUBGRUPO'];
+      p.unidade = maps[i]['UNIDADE'];
+      p.departamento = maps[i]['DEPARTAMENTO'];
+      p.status = maps[i]['STATUS'];
+      p.descricao = maps[i]['DESCRICAO'];
+      p.preco = maps[i]['PRECO'].toDouble();
+
+      // try{
+      //
+      // } catch (e){
+      //   debugPrint(e.toString());
+      // }
+
+
+
+      return p;
+    })[0];
+  }
+
+
 
 }

@@ -4,9 +4,18 @@ abstract class DatabaseObject {
   Map<String, dynamic> toMap();
 }
 
+
 class Produto {
   int id;
   String nome;
+  String descricao = '';
+  String grupo = '';
+  String subGrupo = '';
+  String unidade = '';
+  String status = '';
+  String departamento = '';
+  double preco = 0.0;
+
 
   Produto({this.nome = '', this.id = 0});
 

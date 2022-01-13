@@ -86,7 +86,7 @@ class TelaProdutos extends StatelessWidget {
             ),
           ),
           FutureBuilder(
-            future: getProdutos(),
+            future: BufferTranslator.getProdutoList(),
             builder:
                 (BuildContext context, AsyncSnapshot<List<Produto>> snapshot) {
               if (snapshot.hasData) {
@@ -111,11 +111,4 @@ class TelaProdutos extends StatelessWidget {
   }
 }
 
-Future<List<Produto>> getProdutos() async {
-  final Database db = await DatabaseLocal.getDatabase();
-  final List<Map<String, dynamic>> maps = await db.query('produtos');
 
-  return List.generate(maps.length, (i) {
-    return Produto(id: maps[i]['id'], nome: maps[i]['nome']);
-  });
-}

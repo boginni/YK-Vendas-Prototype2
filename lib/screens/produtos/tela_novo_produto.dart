@@ -57,7 +57,7 @@ class TelaNovoProduto extends StatelessWidget {
                       debugPrint('Não implementado');
                     }
 
-                    await insertProduto(produto, onSuccess, onFail);
+                    await DatabaseLocal.insertProduto(produto, onSuccess, onFail);
                   }
                 },
                 child: const Text(
@@ -73,18 +73,4 @@ class TelaNovoProduto extends StatelessWidget {
   }
 }
 
-Future<void> insertProduto(Produto x, onSuccess, onFail) async {
-  try {
-    final db = await DatabaseLocal.getDatabase();
 
-    await db.insert(
-      'produtos',
-      x.toMap(),
-      conflictAlgorithm: ConflictAlgorithm.replace,
-    );
-
-    onSuccess();
-  } catch (e) {
-    onFail();
-  }
-}

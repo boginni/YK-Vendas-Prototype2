@@ -21,7 +21,7 @@ class TelaItensPedido extends StatelessWidget {
           },
         ),
       ),
-      backgroundColor: Colors.white,
+
       body: ListView(
         children: [
           Row(
@@ -70,7 +70,7 @@ class TelaItensPedido extends StatelessWidget {
             height: 48,
           ),
           FutureBuilder(
-            future: getProdutos(),
+            future: BufferTranslator.getProdutoList(),
             builder:
                 (BuildContext context, AsyncSnapshot<List<Produto>> snapshot) {
               if (snapshot.hasData) {

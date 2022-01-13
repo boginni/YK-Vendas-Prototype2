@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:forca_de_vendas/common/miscellaneous/custom_widgets.dart';
 import 'package:forca_de_vendas/models/database_objects/database_objects.dart';
 import 'package:forca_de_vendas/screens/produtos/tela_novo_produto.dart';
+import 'package:forca_de_vendas/screens/produtos/tela_view_produto.dart';
 import 'package:forca_de_vendas/screens/tela_principal/tela_visita.dart';
 
 class TileButton extends StatelessWidget {
@@ -218,7 +219,7 @@ class TileProduto extends StatelessWidget {
       icon: CupertinoIcons.cube_box,
       title: produto.nome,
       onPressMethod: () {
-        Navigator.of(context).pushNamed(TelaNovoProduto.routeName);
+        Navigator.of(context).pushNamed(TelaViewProduto.routeName, arguments: produto);
       },
     );
   }
@@ -346,6 +347,57 @@ class TilePlain extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+
+
+class TileTopico extends StatelessWidget {
+  final String name;
+
+  const TileTopico(this.name, {Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(top: 14),
+      child: Row(
+        children: <Widget>[
+          Text(
+            name,
+            style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+          ),
+          const Expanded(
+            child: Divider(),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class TileTextFlex extends StatelessWidget {
+  const TileTextFlex(this.title, this.value, {Key? key}) : super(key: key);
+
+  final String title;
+  final String value;
+
+  @override
+  Widget build(BuildContext context) {
+    return Flex(
+      direction: Axis.horizontal,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: <Widget>[
+        Text(
+          title,
+          style: const TextStyle(fontSize: 16),
+        ),
+        Text(
+          value,
+          style: const TextStyle(fontStyle: FontStyle.italic, fontSize: 14),
+        )
+      ],
     );
   }
 }

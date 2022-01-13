@@ -1,11 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:forca_de_vendas/common/tiles/default_tiles.dart';
-import 'package:forca_de_vendas/models/database_objects/database_objects.dart';
 import 'package:flutter/services.dart';
+import 'package:forca_de_vendas/common/tiles/default_tiles.dart';
 import 'package:forca_de_vendas/models/database_local.dart';
+import 'package:forca_de_vendas/models/database_objects/database_objects.dart';
 import 'package:provider/provider.dart';
-
 
 class CounterProduto {
   int counter = 0;
@@ -13,10 +12,10 @@ class CounterProduto {
   Produto produto = Produto();
 }
 
-class TelaItemPedido extends StatelessWidget {
-  static const routeName = '/telaItemPedido';
+class TelaViewProduto extends StatelessWidget {
+  static const routeName = '/telaViewProduto';
 
-  const TelaItemPedido({Key? key}) : super(key: key);
+  const TelaViewProduto({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +23,7 @@ class TelaItemPedido extends StatelessWidget {
 
     return FutureProvider<CounterProduto>(
       create: (BuildContext context) {
-            (_) => CounterProduto();
+        (_) => CounterProduto();
       },
       initialData: CounterProduto(),
       child: Scaffold(
@@ -96,10 +95,6 @@ class TelaItemPedido extends StatelessWidget {
     );
   }
 }
-
-
-
-
 
 class _ProductInfoState extends State {
   int qtd = 0;
@@ -183,12 +178,4 @@ class _ProductInfo extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() => _ProductInfoState();
-
 }
-
-
-
-
-
-
-

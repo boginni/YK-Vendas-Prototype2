@@ -12,6 +12,7 @@ import 'package:forca_de_vendas/screens/rotas/tela_rotas.dart';
 import 'package:forca_de_vendas/screens/roteirizador/tela_roteirizador.dart';
 import 'package:forca_de_vendas/screens/tela_principal/tela_principal.dart';
 import 'package:forca_de_vendas/screens/testes/test_dogs.dart';
+import 'package:forca_de_vendas/screens/testes/test_stateful.dart';
 import 'package:forca_de_vendas/screens/visita_agenda/tela_incluir_visita_na_agenda.dart';
 import 'package:provider/provider.dart';
 
@@ -33,7 +34,7 @@ class BaseScreen extends StatelessWidget {
         physics: const NeverScrollableScrollPhysics(),
         children: const <Widget>[
           TelaPrincipal(),
-          TelaTesteDogs(),
+          MeuWidget(),
           TelaClientes(),
           TelaProdutos(),
           TelaMensagens(), // mensagens
@@ -50,11 +51,3 @@ class BaseScreen extends StatelessWidget {
     );
   }
 }
-
-// return Scaffold(
-// appBar: AppBar(
-// title: Text('Novo Cliente'),
-// centerTitle: true,
-// ),
-// drawer: CustomDrawer(),
-// body: Center());
