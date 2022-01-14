@@ -4,6 +4,7 @@ import 'package:forca_de_vendas/screens/clientes/novo_cliente.dart';
 import 'package:forca_de_vendas/screens/clientes/tela_confirmar_novo_cliente.dart';
 import 'package:forca_de_vendas/screens/produtos/tela_novo_produto.dart';
 import 'package:forca_de_vendas/screens/produtos/tela_view_produto.dart';
+import 'package:forca_de_vendas/screens/tela_principal/tela_pedido/tela_adicionar_item.dart';
 import 'package:forca_de_vendas/screens/tela_principal/tela_pedido/tela_dados_da_entrega.dart';
 import 'package:forca_de_vendas/screens/tela_principal/tela_pedido/tela_item_do_pedido.dart';
 import 'package:forca_de_vendas/screens/tela_principal/tela_pedido/tela_itens_do_pedido.dart';
@@ -91,6 +92,7 @@ class MyApp extends StatelessWidget {
           TelaNovoProduto.routeName: (context) => const TelaNovoProduto(),
           TelaNovoCliente.routeName: (context) => const TelaNovoCliente(),
           TelaViewProduto.routeName: (context) => const TelaViewProduto(),
+          TelaAdicionarItem.routeName: (context) => const TelaAdicionarItem(),
           BaseScreen.routeName: (context) => const BaseScreen(),
         },
         initialRoute: '/base',

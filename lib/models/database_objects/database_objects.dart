@@ -57,6 +57,7 @@ class Cliente {
 }
 
 class Visita {
+  int id = 0;
   int idPessoa = 0;
   String apelido = "";
   String nome = "";
@@ -83,4 +84,37 @@ class Rota {
 class Graph {
   int id = 0;
   String nome = '';
+}
+
+class ItemVisita {
+
+  int id = 0;
+  int quantidade = 0;
+  int idVisita = 0;
+  Produto produto = Produto();
+
+  Map<String, Object?> toMap() {
+
+    Map<String, Object?> map = {
+      'ID_VISITA' : idVisita,
+      'ID_PRODUTO' : produto.id,
+      'QUANTIDADE' : quantidade,
+
+    };
+
+    if(id != 0){
+      map['ID'] = id;
+    }
+
+    return map;
+
+  }
+}
+
+class TotaisPedido {
+
+  double total = 0;
+  double totalLiquido = 0;
+
+
 }

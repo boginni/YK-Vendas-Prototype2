@@ -1,10 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:forca_de_vendas/common/miscellaneous/custom_widgets.dart';
+import 'package:forca_de_vendas/models/database_local.dart';
 import 'package:forca_de_vendas/models/database_objects/database_objects.dart';
+import 'package:forca_de_vendas/models/page_manager.dart';
 import 'package:forca_de_vendas/screens/produtos/tela_novo_produto.dart';
 import 'package:forca_de_vendas/screens/produtos/tela_view_produto.dart';
 import 'package:forca_de_vendas/screens/tela_principal/tela_visita.dart';
+import 'package:provider/provider.dart';
 
 class TileButton extends StatelessWidget {
   const TileButton({Key? key, this.icon, this.title = "", this.onPressMethod})
@@ -219,23 +222,25 @@ class TileProduto extends StatelessWidget {
       icon: CupertinoIcons.cube_box,
       title: produto.nome,
       onPressMethod: () {
-        Navigator.of(context).pushNamed(TelaViewProduto.routeName, arguments: produto);
+        Navigator.of(context)
+            .pushNamed(TelaViewProduto.routeName, arguments: produto);
       },
     );
   }
 }
 
 class TileRota extends StatelessWidget {
-  const TileRota(this.rota, {Key? key}) : super(key: key);
+  const TileRota(this.rota, this.onPressMethod, {Key? key}) : super(key: key);
   final Rota rota;
-
+  final Function onPressMethod;
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
+
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
       child: TextButton(
-        onPressed: () {},
+        onPressed: () => onPressMethod(),
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
           child: Column(
@@ -272,8 +277,6 @@ class TileRota extends StatelessWidget {
   }
 }
 
-
-
 class TileGraph extends StatelessWidget {
   const TileGraph(this.graph, {Key? key}) : super(key: key);
 
@@ -289,16 +292,17 @@ class TileGraph extends StatelessWidget {
       size: 24,
     );
 
-    onClick(){
+    onClick() {
       debugPrint('test');
     }
 
-    return TilePlain(icon: icon, name: graph.nome, onClickFunction: onClick,);
+    return TilePlain(
+      icon: icon,
+      name: graph.nome,
+      onClickFunction: onClick,
+    );
   }
 }
-
-
-
 
 class TilePlain extends StatelessWidget {
   const TilePlain({
@@ -350,8 +354,6 @@ class TilePlain extends StatelessWidget {
     );
   }
 }
-
-
 
 class TileTopico extends StatelessWidget {
   final String name;

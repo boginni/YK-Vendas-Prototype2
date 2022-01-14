@@ -19,7 +19,7 @@ class TelaVisita extends StatelessWidget {
     Visita visita = ModalRoute.of(context)!.settings.arguments as Visita;
 
     return Provider<Visita>(
-      create: (BuildContext context) {
+      create: (_) {
         return visita;
       },
       child: Scaffold(
@@ -46,7 +46,7 @@ class TelaVisita extends StatelessWidget {
               title: 'Pedido',
               icon: Icons.add_shopping_cart,
               onPressMethod: () {
-                Navigator.of(context).pushNamed(TelaPedido.routeName);
+                Navigator.of(context).pushNamed(TelaPedido.routeName, arguments: visita);
               },
             ),
             TileButton(

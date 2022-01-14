@@ -6,13 +6,6 @@ import 'package:flutter/services.dart';
 import 'package:forca_de_vendas/models/database_local.dart';
 import 'package:provider/provider.dart';
 
-
-class CounterProduto {
-  int counter = 0;
-
-  Produto produto = Produto();
-}
-
 class TelaItemPedido extends StatelessWidget {
   static const routeName = '/telaItemPedido';
 
@@ -20,16 +13,20 @@ class TelaItemPedido extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Produto argProduto = ModalRoute.of(context)!.settings.arguments as Produto;
+    List<dynamic> args =
+        ModalRoute.of(context)!.settings.arguments as List<dynamic>;
 
-    return FutureProvider<CounterProduto>(
+    Produto argProduto = args[0] as Produto;
+    Visita visita = args[1] as Visita;
+
+
+    return Provider<ItemVisita>(
       create: (BuildContext context) {
-            (_) => CounterProduto();
+        return ItemVisita();
       },
-      initialData: CounterProduto(),
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('View produto'),
+          title: const Text('View Produto'),
           leading: BackButton(
             onPressed: () {
               Navigator.of(context).pop();
@@ -46,7 +43,22 @@ class TelaItemPedido extends StatelessWidget {
             } else {
               Produto p = snapshot.data as Produto;
 
-              context.read<CounterProduto>().produto = p;
+              context.read<ItemVisita>().produto = p;
+              context.read<ItemVisita>().idVisita = visita.id;
+
+
+
+              saveProduct() async {
+                ItemVisita v = Provider.of<ItemVisita>(context, listen: false);
+
+                // int x = v.quantidade;
+                // int y = visita.idPessoa;
+                await DatabaseLocal.insertItemVisita(v);
+
+                Navigator.of(context).pop(context);
+
+              }
+
 
               return Card(
                 margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
@@ -73,33 +85,29 @@ class TelaItemPedido extends StatelessWidget {
                       ),
                     ),
                     const _ProductInfo(),
+                    TextButton(
+                      onPressed: () => saveProduct(),
+                      child: const Text(
+                        "Salvar",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 16,
+                            fontStyle: FontStyle.italic),
+                      ),
+                    ),
                   ],
                 ),
               );
             }
           },
         ),
-        floatingActionButton: TextButton(
-          onPressed: () {
-            int x = context
-                .read<CounterProduto>()
-                .counter; //Navigator.of(context).pop(context)
 
-            debugPrint("produtos: " + x.toString());
-          },
-          child: const Text(
-            "Salvar",
-            style: TextStyle(color: Colors.black, fontSize: 16, fontStyle: FontStyle.italic),
-          ),
-        ),
+
+
       ),
     );
   }
 }
-
-
-
-
 
 class _ProductInfoState extends State {
   int qtd = 0;
@@ -114,13 +122,31 @@ class _ProductInfoState extends State {
   Widget build(BuildContext context) {
     // TODO: implement build
 
-    final Produto produto = context.read<CounterProduto>().produto;
+    final Produto produto = context.read<ItemVisita>().produto;
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
+
+          //
+          const TileTopico('Categoria'),
+          TileTextFlex('Grupo:', produto.grupo),
+          TileTextFlex('Subgrupo:', produto.subGrupo),
+          TileTextFlex('Departamento:', produto.departamento),
+          //
+          const TileTopico('Estoque'),
+          TileTextFlex('Tipo de medida:', produto.unidade),
+          const TileTextFlex('Estoque Atual:', '0.00'),
+          const TileTextFlex('Quantidade Reservada:', '12.00'),
+          //
+          const TileTopico('Financeiro'),
+          TileTextFlex('Preço:', _getPreco(produto)),
+          TileTextFlex('Total Bruto:', _getTotal(produto)),
+          TileTextFlex('Total Liquido:', _getTotal(produto)),
+          TileTextFlex('Subtotal do Pedido:', _getTotal(produto)),
+          //
           const Text(
             'Quantidade',
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
@@ -134,28 +160,12 @@ class _ProductInfoState extends State {
               style: const TextStyle(fontSize: 22),
               onChanged: (text) {
                 int x = int.parse(text.isEmpty ? '0' : text);
-                context.read<CounterProduto>().counter = x;
+                context.read<ItemVisita>().quantidade = x;
                 setQtd(x);
               },
               inputFormatters: [
                 FilteringTextInputFormatter.digitsOnly,
               ]),
-          //
-          const TileTopico('Categoria'),
-          TileTextFlex('Grupo:', produto.grupo),
-          TileTextFlex('Subgrupo:', produto.subGrupo),
-          TileTextFlex('Departamento:', produto.departamento),
-          //
-          const TileTopico('Estoque'),
-          TileTextFlex('Tipo de medida:', produto.unidade),
-          TileTextFlex('Estoque Atual:', '0.00'),
-          TileTextFlex('Quantidade Reservada:', '12.00'),
-          //
-          const TileTopico('Financeiro'),
-          TileTextFlex('Preço:', _getPreco(produto)),
-          TileTextFlex('Total Bruto:', _getTotal(produto)),
-          TileTextFlex('Total Liquido:', _getTotal(produto)),
-          TileTextFlex('Subtotal do Pedido:', _getTotal(produto)),
         ],
       ),
     );
@@ -183,12 +193,4 @@ class _ProductInfo extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() => _ProductInfoState();
-
 }
-
-
-
-
-
-
-

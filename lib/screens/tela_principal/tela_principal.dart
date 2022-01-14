@@ -7,6 +7,7 @@ import 'package:forca_de_vendas/common/tiles/default_tiles.dart';
 import 'package:forca_de_vendas/models/database_local.dart';
 import 'package:forca_de_vendas/models/database_objects/database_objects.dart';
 import 'package:forca_de_vendas/screens/base/moddel_screen.dart';
+import 'package:provider/provider.dart';
 
 class TelaPrincipal extends ModdelScreen{
   const TelaPrincipal({Key? key}) : super(key: key);
@@ -14,9 +15,13 @@ class TelaPrincipal extends ModdelScreen{
 
   @override
   Widget getCustomScreen(BuildContext context) {
+
+
+    Rota rota = context.read<Rota>();
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Força de Vendas"),
+        title:  Text("Rota: "+rota.nome),
         actions: <Widget>[
           Padding(
             padding: const EdgeInsets.only(right: 20),
@@ -37,7 +42,7 @@ class TelaPrincipal extends ModdelScreen{
 
       drawer: const CustomDrawer(),
       body: FutureBuilder(
-        future: BufferTranslator.getVisitas(),
+        future: BufferTranslator.getVisitas(rota.id),
         builder: (BuildContext context, AsyncSnapshot<List<Visita>> snapshot) {
           if (snapshot.hasData) {
             List<Visita> visitas = snapshot.data!;

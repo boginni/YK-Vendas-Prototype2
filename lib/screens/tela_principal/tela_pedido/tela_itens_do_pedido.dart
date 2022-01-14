@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:forca_de_vendas/common/tiles/default_tiles.dart';
 import 'package:forca_de_vendas/models/database_local.dart';
 import 'package:forca_de_vendas/models/database_objects/database_objects.dart';
+import 'package:forca_de_vendas/screens/tela_principal/tela_pedido/tela_adicionar_item.dart';
+import 'package:forca_de_vendas/screens/tela_principal/tela_pedido/tela_item_do_pedido.dart';
 import 'package:sqflite/sqflite.dart';
 
 class TelaItensPedido extends StatelessWidget {
@@ -12,82 +14,51 @@ class TelaItensPedido extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Visita visita = ModalRoute.of(context)!.settings.arguments as Visita;
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Itens do Pedido'),
-        leading: BackButton(
-          onPressed: () {
-            Navigator.of(context).pop(context);
-          },
-        ),
-      ),
-
+          title: const Text('Itens do Pedido'),
+          leading: BackButton(
+            onPressed: () {
+              Navigator.of(context).pop(context);
+            },
+          ),
+          actions: <Widget>[
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  primary: Theme.of(context).primaryColor),
+              onPressed: () {
+                Navigator.of(context).pushNamed(TelaAdicionarItem.routeName, arguments: visita);
+              },
+              child: const Icon(CupertinoIcons.add_circled_solid),
+            )
+          ]),
       body: ListView(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            // crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Align(
-                alignment: Alignment.centerLeft,
-                child: ElevatedButton(
-                  onPressed: () {},
-                  child: const Center(
-                    child: Icon(
-                      CupertinoIcons.left_chevron,
-                      size: 32,
-                      color: Colors.grey,
-                    ),
-                  ),
-                ),
-              ),
-              const Align(
-                alignment: Alignment.center,
-                child: Text(
-                  'Categoria',
-                  style: TextStyle(fontSize: 18),
-                ),
-              ),
-              Align(
-                alignment: Alignment.centerRight,
-                child: ElevatedButton(
-                  onPressed: () {
-                    debugPrint('not implemented');
-                  },
-                  child: const Center(
-                    child: Icon(
-                      CupertinoIcons.right_chevron,
-                      size: 32,
-                      color: Colors.grey,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          const Divider(),
-          const SizedBox(
-            height: 48,
-          ),
           FutureBuilder(
-            future: BufferTranslator.getProdutoList(),
-            builder:
-                (BuildContext context, AsyncSnapshot<List<Produto>> snapshot) {
+            future: BufferTranslator.getItensVisita(visita.id),
+            builder: (BuildContext context,
+                AsyncSnapshot<List<ItemVisita>> snapshot) {
               if (snapshot.hasData) {
-                List<Produto> produtos = snapshot.data!;
+                List<ItemVisita> list = snapshot.data!;
 
                 return ListView.builder(
                   shrinkWrap: true,
-                  itemCount: produtos.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    final Produto curProduto = produtos[index];
+                  itemCount: list.length,
+                  itemBuilder: (BuildContext context, int i) {
+                    final ItemVisita item = list[i];
 
                     return TileButton(
                       icon: CupertinoIcons.cube_box,
-                      title: curProduto.nome,
+                      title: item.produto.nome +
+                          ' - ' +
+                          item.quantidade.toString() +
+                          'x',
                       onPressMethod: () {
-                        Navigator.of(context).pushNamed('/telaItemPedido',
-                            arguments: curProduto);
+                        Navigator.of(context).pushNamed(
+                            TelaItemPedido.routeName,
+                            arguments: [item, visita]);
                       },
                     );
                   },

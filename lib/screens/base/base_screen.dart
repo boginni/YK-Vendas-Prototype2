@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:forca_de_vendas/models/database_local.dart';
+import 'package:forca_de_vendas/models/database_objects/database_objects.dart';
 import 'package:forca_de_vendas/models/page_manager.dart';
 import 'package:forca_de_vendas/screens/clientes/tela_clientes.dart';
 import 'package:forca_de_vendas/screens/configuracoes/tela_configuracoes.dart';
@@ -22,32 +24,59 @@ class BaseScreen extends StatelessWidget {
   const BaseScreen({Key? key}) : super(key: key);
 
 
+  Future<Rota> getRota() async{
+    Rota r = await StoredConfig.ultimaRota();
+    await Future.delayed(const Duration(seconds: 1));
+    return r;
+  }
+
   @override
   Widget build(BuildContext context) {
     final PageController pageController = PageController();
 
     // TODO: implement build
-    return Provider(
-      create: (_) => PageManager(pageController: pageController),
-      child: PageView(
-        controller: pageController,
-        physics: const NeverScrollableScrollPhysics(),
-        children: const <Widget>[
-          TelaPrincipal(),
-          MeuWidget(),
-          TelaClientes(),
-          TelaProdutos(),
-          TelaMensagens(), // mensagens
-          TelaRoteirizador(), //Roteirizador
-          TelaRotas(), //Rotas
-          TelaConsultas(), //Consultas
-          TelaPainelGerenciamento(), //Painel
-          TelaGraficos(),
-          TelaIncluirVisitaAgenda(), //Incluir visita
-          TelaConfiguracoes(),
-          LoginScreen(), //Sair
-        ],
-      ),
+    return FutureBuilder(
+      future: getRota(),
+      builder: (BuildContext context, AsyncSnapshot<Rota> snapshot) {
+        if (!snapshot.hasData) {
+          return Container(
+            color: Colors.white,
+            child: const Center(
+              child: CircularProgressIndicator(
+
+                color: Colors.cyanAccent,
+              ),
+            ),
+          );
+        }
+
+        return MultiProvider(
+          providers: [
+            Provider<PageManager>(
+                create: (_) => PageManager(pageController: pageController)),
+            Provider<Rota>(create: (_) => snapshot.data!),
+          ],
+          child: PageView(
+            controller: pageController,
+            physics: const NeverScrollableScrollPhysics(),
+            children: const <Widget>[
+              TelaPrincipal(),
+              MeuWidget(),
+              TelaClientes(),
+              TelaProdutos(),
+              TelaMensagens(), // mensagens
+              TelaRoteirizador(), //Roteirizador
+              TelaRotas(), //Rotas
+              TelaConsultas(), //Consultas
+              TelaPainelGerenciamento(), //Painel
+              TelaGraficos(),
+              TelaIncluirVisitaAgenda(), //Incluir visita
+              TelaConfiguracoes(),
+              LoginScreen(), //Sair
+            ],
+          ),
+        );
+      },
     );
   }
 }
