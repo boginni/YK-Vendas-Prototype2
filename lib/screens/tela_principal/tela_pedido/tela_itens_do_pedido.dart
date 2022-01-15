@@ -33,9 +33,12 @@ class TelaItensPedido extends StatelessWidget {
               },
               child: const Icon(CupertinoIcons.add_circled_solid),
             )
-          ]),
+          ]
+
+      ),
       body: ListView(
         children: [
+
           FutureBuilder(
             future: BufferTranslator.getItensVisita(visita.id),
             builder: (BuildContext context,
@@ -79,6 +82,6 @@ Future<List<Produto>> getProdutos() async {
   final List<Map<String, dynamic>> maps = await db.query('produtos');
 
   return List.generate(maps.length, (i) {
-    return Produto(id: maps[i]['id'], nome: maps[i]['nome']);
+    return Produto(idProduto: maps[i]['id'], nome: maps[i]['nome']);
   });
 }

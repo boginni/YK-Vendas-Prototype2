@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:forca_de_vendas/common/tiles/default_tiles.dart';
 import 'package:forca_de_vendas/models/database_objects/database_objects.dart';
+import 'package:forca_de_vendas/screens/tela_principal/tela_pedido/tela_adicionar_item.dart';
 import 'package:forca_de_vendas/screens/tela_principal/tela_pedido/tela_dados_da_entrega.dart';
 import 'package:forca_de_vendas/screens/tela_principal/tela_pedido/tela_itens_do_pedido.dart';
 import 'package:forca_de_vendas/screens/tela_principal/tela_pedido/tela_tabela_de_preco.dart';
@@ -27,7 +28,6 @@ class TelaPedido extends StatelessWidget {
               Navigator.of(context).pop(context),
         ),
       ),
-      backgroundColor: Colors.white,
       body: ListView(
         children: [
           TileButton(
@@ -41,7 +41,7 @@ class TelaPedido extends StatelessWidget {
             title: 'Itens do pedido',
             icon: Icons.shopping_cart,
             onPressMethod: () {
-               Navigator.of(context).pushNamed(TelaItensPedido.routeName, arguments: visita);
+               Navigator.of(context).pushNamed(TelaAdicionarItem.routeName, arguments: visita);
             },
           ),
           TileButton(

@@ -32,7 +32,6 @@ class TelaVisita extends StatelessWidget {
             },
           ),
         ),
-        backgroundColor: Colors.white,
         body: ListView(
           children: [
             TileButton(

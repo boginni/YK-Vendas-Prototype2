@@ -6,7 +6,8 @@ abstract class DatabaseObject {
 
 
 class Produto {
-  int id;
+  int idProduto;
+  int idVisita = 0;
   String nome;
   String descricao = '';
   String grupo = '';
@@ -16,11 +17,13 @@ class Produto {
   String departamento = '';
   double preco = 0.0;
 
+  double total = 0.0;
 
-  Produto({this.nome = '', this.id = 0});
+
+  Produto({this.nome = '', this.idProduto = 0});
 
   Map<String, dynamic> toMap() {
-    return {'id': id, 'nome': nome};
+    return {'id': idProduto, 'nome': nome};
   }
 }
 
@@ -97,7 +100,7 @@ class ItemVisita {
 
     Map<String, Object?> map = {
       'ID_VISITA' : idVisita,
-      'ID_PRODUTO' : produto.id,
+      'ID_PRODUTO' : produto.idProduto,
       'QUANTIDADE' : quantidade,
 
     };
@@ -115,6 +118,7 @@ class TotaisPedido {
 
   double total = 0;
   double totalLiquido = 0;
-
+  int quantidade = 0;
+  int itens = 0;
 
 }

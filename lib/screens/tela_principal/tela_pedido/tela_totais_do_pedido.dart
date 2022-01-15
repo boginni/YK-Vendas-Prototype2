@@ -41,8 +41,8 @@ class TelaTotaisPedido extends StatelessWidget {
                       value: 'R\$' + t.total.toString(),
                     ),
                     TileText(
-                      title: 'Total do Pedido Liquido',
-                      value: 'R\$' + t.total.toString(),
+                      title: 'Itens: ',
+                      value: t.itens.toString(),
                     ),
                   ],
                 );

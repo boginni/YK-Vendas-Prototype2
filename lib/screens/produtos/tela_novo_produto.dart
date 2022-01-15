@@ -35,7 +35,7 @@ class TelaNovoProduto extends StatelessWidget {
               FormText(
                   title: "ID",
                   saveFunction: (text) {
-                    produto.id = int.parse(text.toString());
+                    produto.idProduto = int.parse(text.toString());
                   }),
               FormText(
                   title: "Nome",

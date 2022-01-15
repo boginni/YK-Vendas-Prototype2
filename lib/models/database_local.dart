@@ -5,7 +5,7 @@ import 'package:sqflite/sqflite.dart';
 import 'database_objects/database_objects.dart';
 
 class DatabaseLocal {
-  static const int version = 2;
+  static const int version = 4;
 
   static Future<Database> getDatabase() async {
     // print(await getDatabasesPath());
@@ -50,9 +50,10 @@ class DatabaseLocal {
         conflictAlgorithm: ConflictAlgorithm.replace,
       );
 
-      // onSuccess();
+      // debugPrint(item.toMap().toString());
+
     } catch (e) {
-      // onFail();
+      debugPrint(e.toString());
     }
   }
 }
@@ -89,14 +90,9 @@ class StoredConfig {
 
     return r;
   }
-
-
-
 }
 
 class BufferTranslator {
-
-
   static Future<List<Visita>> getVisitas(int idRota) async {
     final db = await DatabaseLocal.getDatabase();
     String where = "ID_ROTA = ?";
@@ -176,71 +172,63 @@ class BufferTranslator {
     final List<Map<String, dynamic>> maps = await db.query('CP_PRODUTO');
 
     return List.generate(maps.length, (i) {
-      return Produto(id: maps[i]['ID'], nome: maps[i]['NOME']);
+      return Produto(idProduto: maps[i]['ID'], nome: maps[i]['NOME']);
     });
   }
 
   static const statusAtivo = 3;
+
   static Future<List<ItemVisita>> getItensVisita(int idVisita) async {
     final Database db = await DatabaseLocal.getDatabase();
 
     String args = "STATUS = ? AND ID_VISITA = ?";
     List<int> param = [statusAtivo, idVisita];
 
-
-
-
-    final List<Map<String, dynamic>> maps = await db.query('VW_VISITA_ITEM', where: args,whereArgs: param);
-
-
+    final List<Map<String, dynamic>> maps =
+        await db.query('VW_VISITA_ITEM', where: args, whereArgs: param);
 
     return List.generate(maps.length, (i) {
       final item = ItemVisita();
       final produto = Produto();
 
-      produto.id = maps[i]['ID_PRODUTO'];
+      produto.idProduto = maps[i]['ID_PRODUTO'];
       produto.nome = maps[i]['NOME'];
       item.quantidade = maps[i]['QUANTIDADE'];
       item.produto = produto;
       item.idVisita = idVisita;
 
       return item;
-    })
-
-    ;
+    });
   }
 
-  static Future<Produto> getProdutoDet(int id) async {
+  //ID_VISITA	ID_PRODUTO	NOME	PRECO	TOTAL	QUANTIDADE	DESCRICAO	GRUPO	SUBGRUPO	UNIDADE	STATUS	DEPARTAMENTO
 
-
+  static Future<Produto> getProdutoDet(int idVisita, int idProduto) async {
     final Database db = await DatabaseLocal.getDatabase();
 
-
-    String args = "VW_PRODUTO_DET.ID = ?";
-    List<int> param = [id];
-
+    String args = "ID_VISITA = ? and ID_PRODUTO = ?";
+    List<int> param = [idVisita, idProduto];
 
     final List<Map<String, dynamic>> maps =
         await db.query('VW_PRODUTO_DET', where: args, whereArgs: param);
 
-    return List.generate(maps.length, (i) {
-      final p = Produto(id: maps[i]['ID'], nome: maps[i]['NOME']);
-      p.grupo = maps[i]['GRUPO'];
-      p.subGrupo = maps[i]['SUBGRUPO'];
-      p.unidade = maps[i]['UNIDADE'];
-      p.departamento = maps[i]['DEPARTAMENTO'];
-      p.status = maps[i]['STATUS'];
-      p.descricao = maps[i]['DESCRICAO'];
-      p.preco = maps[i]['PRECO'].toDouble();
 
-      // try{
-      //
-      // } catch (e){
-      //   debugPrint(e.toString());
-      // }
 
-      return p;
-    })[0];
+    final p = Produto(idProduto: maps[0]['ID_PRODUTO'], nome: maps[0]['NOME']);
+
+    p.grupo = maps[0]['GRUPO'];
+    p.subGrupo = maps[0]['SUBGRUPO'];
+    p.unidade = maps[0]['UNIDADE'];
+    p.departamento = maps[0]['DEPARTAMENTO'];
+    p.status = maps[0]['STATUS'];
+    p.descricao = maps[0]['DESCRICAO'];
+    p.idVisita = maps[0]['ID_VISITA'];
+
+    p.total = maps[0]['TOTAL'].toDouble();
+    p.preco = maps[0]['PRECO'].toDouble();
+
+
+    return p;
   }
 
   static Future<TotaisPedido> getTotaisPedido(int idVisita) async {
@@ -253,12 +241,14 @@ class BufferTranslator {
     // debugPrint(idRota.toString());
 
     final List<Map<String, dynamic>> maps =
-    await db.query('VW_TOTAIS_PEDIDO', where: where, whereArgs: whereArgs);
+        await db.query('VW_TOTAIS_PEDIDO', where: where, whereArgs: whereArgs);
 
     final t = TotaisPedido();
 
     t.total = maps[0]['TOTAL'].toDouble();
     t.totalLiquido = maps[0]['TOTAL'].toDouble();
+    t.quantidade = maps[0]['QUANTIDADE'];
+    t.itens = maps[0]['PRODUTOS'];
 
     return t;
   }

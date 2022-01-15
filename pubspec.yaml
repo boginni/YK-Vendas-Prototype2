@@ -21,6 +21,7 @@ dependencies:
   # Forms formatados com padrão brasileiro
   brasil_fields: 1.3.0
 
+  dropdown_search:
 
 
   #firebase_auth: ^3.3.0
