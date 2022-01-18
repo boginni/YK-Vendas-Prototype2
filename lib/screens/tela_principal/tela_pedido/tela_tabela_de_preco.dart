@@ -106,6 +106,8 @@ class TelaTabelaPrecoState extends State<TelaTabelaPreco> {
 
             return ListView(
               children: <Widget>[
+
+
                 DropdownButton<TabelaPreco>(
                   value: tabela,
                   items: list.map((TabelaPreco item) {

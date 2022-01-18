@@ -22,6 +22,7 @@ class TelaVisitaState extends State<TelaVisita> {
     setState(() {
 
     });
+
   }
 
   @override
