@@ -1,9 +1,9 @@
 import 'package:brasil_fields/brasil_fields.dart';
+import 'package:intl/intl.dart';
 
 abstract class DatabaseObject {
   Map<String, dynamic> toMap();
 }
-
 
 class Produto {
   int idProduto;
@@ -18,7 +18,6 @@ class Produto {
   double preco = 0.0;
 
   double total = 0.0;
-
 
   Produto({this.nome = '', this.idProduto = 0});
 
@@ -72,6 +71,11 @@ class Visita {
   String uf = "";
   String estado = "";
 
+  bool chegadaConcluida = false;
+  bool tabelaConcluida = false;
+  bool pedidoConcluida = false;
+  bool vendaConcluida = false;
+
   String getEndereco() {
     var cep = UtilBrasilFields.obterCep(this.cep, ponto: false);
 
@@ -90,35 +94,47 @@ class Graph {
 }
 
 class ItemVisita {
-
   int id = 0;
   int quantidade = 0;
   int idVisita = 0;
   Produto produto = Produto();
 
   Map<String, Object?> toMap() {
-
     Map<String, Object?> map = {
-      'ID_VISITA' : idVisita,
-      'ID_PRODUTO' : produto.idProduto,
-      'QUANTIDADE' : quantidade,
-
+      'ID_VISITA': idVisita,
+      'ID_PRODUTO': produto.idProduto,
+      'QUANTIDADE': quantidade,
     };
 
-    if(id != 0){
+    if (id != 0) {
       map['ID'] = id;
     }
 
     return map;
-
   }
 }
 
 class TotaisPedido {
-
   double total = 0;
   double totalLiquido = 0;
   int quantidade = 0;
   int itens = 0;
+}
 
+class ChegadaCliente {
+  late final DateTime chegada;
+  final int idVisita;
+
+  double titulosVencer = 0;
+  double limiteCredito = 0;
+
+  // late final String statusUltimaVisita;
+
+  ChegadaCliente(this.idVisita){
+    chegada = DateTime.now();
+  }
+
+  Map<String, Object?> toMap() {
+    return {'ID_VISITA': idVisita, 'DATA': DateFormat('dd-MM-yyyy HH:mm:ss').format(chegada)};
+  }
 }

@@ -28,7 +28,7 @@ class TelaAdicionarItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Visita visita = ModalRoute.of(context)!.settings.arguments as Visita;
+    int idVisita = ModalRoute.of(context)!.settings.arguments as int;
 
     List<testItens> categorias = [
       testItens()..name = "name 1",
@@ -61,28 +61,9 @@ class TelaAdicionarItem extends StatelessWidget {
         children: [
 
 
-          DropdownButton<String>(
-            value: 'One',
-            icon: const Icon(Icons.arrow_downward),
-            elevation: 16,
-            style: const TextStyle(color: Colors.deepPurple),
-            underline: Container(
-              height: 2,
-              color: Colors.deepPurpleAccent,
-            ),
-            onChanged: (String? newValue) {
-              // setState(() {
-              //   dropdownValue = newValue!;
-              // });
-            },
-            items: <String>['One', 'Two', 'Free', 'Four']
-                .map<DropdownMenuItem<String>>((String value) {
-              return DropdownMenuItem<String>(
-                value: value,
-                child: Text('test'),
-              );
-            }).toList(),
-          ),
+
+
+
 
 
           //TODO: Desativado para ser substituido
@@ -154,7 +135,7 @@ class TelaAdicionarItem extends StatelessWidget {
           // ),
           const Divider(),
           FutureBuilder(
-            future: _getProdutoList(visita.id),
+            future: _getProdutoList(idVisita),
             builder: (BuildContext context,
                 AsyncSnapshot<List<ProdutoItemList>> snapshot) {
               if (snapshot.hasData) {

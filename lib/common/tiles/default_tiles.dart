@@ -10,12 +10,13 @@ import 'package:forca_de_vendas/screens/tela_principal/tela_visita.dart';
 import 'package:provider/provider.dart';
 
 class TileButton extends StatelessWidget {
-  const TileButton({Key? key, this.icon, this.title = "", this.onPressMethod})
+  const TileButton({Key? key, this.icon, this.title = "", this.onPressMethod, this.isActive = true})
       : super(key: key);
 
   final Function? onPressMethod;
   final IconData? icon;
   final String title;
+  final bool isActive;
 
   @override
   Widget build(BuildContext context) {
@@ -23,9 +24,7 @@ class TileButton extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
       child: TextButton(
         // color: Colors.white,
-        onPressed: () {
-          onPressMethod!();
-        },
+        onPressed: !isActive ? null : () =>  onPressMethod!() ,
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
           child: Row(
@@ -92,29 +91,74 @@ class TileText extends StatelessWidget {
   }
 }
 
-class TileVisita extends StatelessWidget {
-  final Visita visita;
+class TileVisita extends StatefulWidget {
+  Visita visita;
 
-  const TileVisita({Key? key, required this.visita}) : super(key: key);
+  TileVisita({Key? key, required this.visita}) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() => TileVisitaState();
+
+}
+
+class TileVisitaState extends State<TileVisita> {
+
+
+  update() async{
+    final idVisita = widget.visita.id;
+
+    final newVisita = await BufferTranslator.getVisita(idVisita);
+
+    setState(() {
+      widget.visita = newVisita;
+    });
+  }
+
+  navigate(){
+    final idVisita = widget.visita.id;
+
+    Navigator.of(context)
+        .pushNamed(TelaVisita.routeName, arguments: idVisita).then((value) => update());
+  }
 
   @override
   Widget build(BuildContext context) {
+    Visita visita = widget.visita;
+
     // TODO: implement build
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       child: TextButton(
-        onPressed: () {
-          Navigator.of(context)
-              .pushNamed(TelaVisita.routeName, arguments: visita);
-        },
+        onPressed: navigate,
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 0),
           child: Row(
             children: [
-              const IconDynamic(
-                primary: CupertinoIcons.doc_text,
-                secondary: CupertinoIcons.doc_text_fill,
-                size: 64,
+              Stack(
+                children: <Widget>[
+                  const IconDynamic(
+                    primary: CupertinoIcons.doc_text,
+                    secondary: CupertinoIcons.doc_text_fill,
+                    size: 64,
+                  ),
+                  Flex(direction: Axis.horizontal,
+                    children: <Widget>[
+
+                      visita.chegadaConcluida ? Text('C') : Text(''),
+                      visita.tabelaConcluida ? Text('T') : Text(''),
+                      visita.pedidoConcluida ? Text('P') : Text(''),
+                      visita.vendaConcluida ? Text('V') : Text(''),
+
+                    ],
+
+
+                  )
+
+
+
+
+
+                ],
               ),
               const SizedBox(
                 width: 8,
@@ -163,7 +207,13 @@ class TileVisita extends StatelessWidget {
       ),
     );
   }
+
+
 }
+
+
+
+
 
 class TileCliente extends StatelessWidget {
   // final Function? onPressMethod;
@@ -403,3 +453,5 @@ class TileTextFlex extends StatelessWidget {
     );
   }
 }
+
+

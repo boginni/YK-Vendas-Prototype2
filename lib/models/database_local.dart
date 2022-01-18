@@ -1,10 +1,16 @@
 import 'package:flutter/widgets.dart';
+import 'package:intl/intl.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 import 'database_objects/database_objects.dart';
 
-class DatabaseLocal {
+abstract class DatabaseLocal {
+
+  static String getCurrentTime(){
+    return DateFormat('dd-MM-yyyy HH:mm:ss').format(DateTime.now());
+  }
+
   static const int version = 4;
 
   static Future<Database> getDatabase() async {
@@ -56,6 +62,26 @@ class DatabaseLocal {
       debugPrint(e.toString());
     }
   }
+
+  static Future<void> insertChegadaCliente(ChegadaCliente x) async {
+
+    try {
+      final db = await getDatabase();
+      await db.insert(
+        'CP_VISITA_CHEGADA',
+        x.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.abort,
+      );
+
+      // debugPrint(item.toMap().toString());
+
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+
+  }
+
+
 }
 
 class StoredConfig {
@@ -106,9 +132,10 @@ class BufferTranslator {
     final visitas = List.generate(maps.length, (i) {
       Visita v = Visita();
 
-      v.id = maps[i]["ID"];
+      v.id = maps[i]["ID_VISITA"];
       v.idPessoa = maps[i]['ID_PESSOA'];
       v.nome = maps[i]['NOME'];
+
       v.logradouro = maps[i]['LOGRADOURO'];
       v.numero = maps[i]['NUMERO'];
       v.cep = maps[i]['CEP'];
@@ -117,10 +144,52 @@ class BufferTranslator {
       v.uf = maps[i]['UF'];
       v.estado = maps[i]['ESTADO'];
 
+      v.chegadaConcluida = _bool(maps[i]['CHEGADA_CONCLUIDA']);
+      v.tabelaConcluida = _bool(maps[i]['TABELA_CONCLUIDA']);
+      v.pedidoConcluida = _bool(maps[i]['PEDIDO_CONCLUIDA']);
+      v.vendaConcluida = _bool(maps[i]['VENDA_CONCLUIDA']);
+
       return v;
     });
 
     return visitas;
+  }
+
+
+  static Future<Visita> getVisita(int idVisita) async {
+    final db = await DatabaseLocal.getDatabase();
+    String where = "ID_VISITA = ?";
+    List<dynamic> whereArgs = [idVisita];
+
+    // debugPrint(idRota.toString());
+
+    final List<Map<String, dynamic>> maps =
+    await db.query('VW_VISITA', where: where, whereArgs: whereArgs);
+
+    final visitas = List.generate(maps.length, (i) {
+      Visita v = Visita();
+
+      v.id = maps[i]["ID_VISITA"];
+      v.idPessoa = maps[i]['ID_PESSOA'];
+      v.nome = maps[i]['NOME'];
+
+      v.logradouro = maps[i]['LOGRADOURO'];
+      v.numero = maps[i]['NUMERO'];
+      v.cep = maps[i]['CEP'];
+      v.bairro = maps[i]['BAIRRO'];
+      v.cidade = maps[i]['CIDADE'];
+      v.uf = maps[i]['UF'];
+      v.estado = maps[i]['ESTADO'];
+
+      v.chegadaConcluida = _bool(maps[i]['CHEGADA_CONCLUIDA']);
+      v.tabelaConcluida = _bool(maps[i]['TABELA_CONCLUIDA']);
+      v.pedidoConcluida = _bool(maps[i]['PEDIDO_CONCLUIDA']);
+      v.vendaConcluida = _bool(maps[i]['VENDA_CONCLUIDA']);
+
+      return v;
+    });
+
+    return visitas[0];
   }
 
   static Future<List<Cliente>> getClientes() async {
@@ -212,8 +281,6 @@ class BufferTranslator {
     final List<Map<String, dynamic>> maps =
         await db.query('VW_PRODUTO_DET', where: args, whereArgs: param);
 
-
-
     final p = Produto(idProduto: maps[0]['ID_PRODUTO'], nome: maps[0]['NOME']);
 
     p.grupo = maps[0]['GRUPO'];
@@ -226,7 +293,6 @@ class BufferTranslator {
 
     p.total = maps[0]['TOTAL'].toDouble();
     p.preco = maps[0]['PRECO'].toDouble();
-
 
     return p;
   }
@@ -252,4 +318,8 @@ class BufferTranslator {
 
     return t;
   }
+}
+
+bool _bool(int b) {
+  return b == 1 ? true : false;
 }

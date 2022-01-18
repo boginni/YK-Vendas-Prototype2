@@ -9,19 +9,17 @@ import 'package:forca_de_vendas/models/database_objects/database_objects.dart';
 import 'package:forca_de_vendas/screens/base/moddel_screen.dart';
 import 'package:provider/provider.dart';
 
-class TelaPrincipal extends ModdelScreen{
+//TODO converter para Stateful Widget
+class TelaPrincipal extends ModdelScreen {
   const TelaPrincipal({Key? key}) : super(key: key);
-
 
   @override
   Widget getCustomScreen(BuildContext context) {
-
-
     Rota rota = context.read<Rota>();
 
     return Scaffold(
       appBar: AppBar(
-        title:  Text("Rota: "+rota.nome),
+        title: Text("Rota: " + rota.nome),
         actions: <Widget>[
           Padding(
             padding: const EdgeInsets.only(right: 20),
@@ -39,7 +37,6 @@ class TelaPrincipal extends ModdelScreen{
           )
         ],
       ),
-
       drawer: const CustomDrawer(),
       body: FutureBuilder(
         future: BufferTranslator.getVisitas(rota.id),
@@ -53,11 +50,9 @@ class TelaPrincipal extends ModdelScreen{
                 return TileVisita(visita: visitas[index]);
               },
             );
-
           } else {
             return const Text('Carregando dados');
           }
-
         },
       ),
     );

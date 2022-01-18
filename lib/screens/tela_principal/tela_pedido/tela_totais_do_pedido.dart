@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:forca_de_vendas/common/tiles/default_tiles.dart';
 import 'package:forca_de_vendas/models/database_local.dart';
 import 'package:forca_de_vendas/models/database_objects/database_objects.dart';
+import 'package:sqflite/sqflite.dart';
 
 class TelaTotaisPedido extends StatelessWidget {
   static const routeName = '/telaTotaisPedido';
@@ -10,7 +11,7 @@ class TelaTotaisPedido extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Visita visita = ModalRoute.of(context)!.settings.arguments as Visita;
+    final int idVisita = ModalRoute.of(context)!.settings.arguments as int;
 
     return Scaffold(
       appBar: AppBar(
@@ -25,7 +26,7 @@ class TelaTotaisPedido extends StatelessWidget {
         child: ListView(
           children: <Widget>[
             FutureBuilder(
-              future: BufferTranslator.getTotaisPedido(visita.id),
+              future: BufferTranslator.getTotaisPedido(idVisita),
               builder:
                   (BuildContext context, AsyncSnapshot<TotaisPedido> snapshot) {
                 TotaisPedido t = TotaisPedido();
@@ -66,3 +67,26 @@ class TelaTotaisPedido extends StatelessWidget {
     );
   }
 }
+
+class TabelaPreco{
+  final int id;
+
+  TabelaPreco(this.id);
+
+}
+
+
+Future<void> insertTotais(final int idVisita, final TabelaPreco x) async {
+  try {
+    final db = await DatabaseLocal.getDatabase();
+    await db.insert(
+      'CP_VISITA_TABELA',
+      {'ID_VISITA': idVisita, 'ID_TABELA_PRECOS': x.id},
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+
+  } catch (e) {
+    debugPrint(e.toString());
+  }
+}
+

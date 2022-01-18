@@ -1,0 +1,12 @@
+atualizar data
+
+CREATE TRIGGER VISITA_ITEM_UPDATE
+         AFTER DELETE
+            ON CP_VISITA_ITEM
+      FOR EACH ROW
+BEGIN
+    UPDATE CP_VISITA_ITEM
+       SET LAST_UPDATE = datetime('now', 'localtime') 
+     WHERE ID_VISITA = new.ID_VISITA AND 
+           ID_PRODUTO = new.ID_PRODUTO;
+END;

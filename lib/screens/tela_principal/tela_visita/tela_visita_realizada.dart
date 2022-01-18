@@ -7,7 +7,6 @@ class TelaVisitaRealizada extends StatelessWidget {
 
   static const routeName = '/visitaRealizada' ;
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
