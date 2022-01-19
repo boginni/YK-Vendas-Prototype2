@@ -14,9 +14,9 @@ class TelaTabelaPreco extends StatefulWidget {
 }
 
 class TelaTabelaPrecoState extends State<TelaTabelaPreco> {
-  DropDownSavedValue? tabela;
+  DropdownSavedValue? tabela;
 
-  void setTabela(DropDownSavedValue? x) async {
+  void setTabela(DropdownSavedValue? x) async {
     setState(() {
       tabela = x;
     });
@@ -42,6 +42,8 @@ class TelaTabelaPrecoState extends State<TelaTabelaPreco> {
       return 1;
     }
 
+
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Tabela de Preço'),
@@ -65,8 +67,8 @@ class TelaTabelaPrecoState extends State<TelaTabelaPreco> {
             return ListView(
               children: <Widget>[
 
-                DropDownSaved(
-                  DropDownSaved.tabelaPreco,
+                Dropdownsaved(
+                  Dropdownsaved.tabelaPreco,
                   currentValue: tabela,
                   onChange: (i) => setTabela(i),
                 ),
@@ -93,14 +95,14 @@ class TelaTabelaPrecoState extends State<TelaTabelaPreco> {
   }
 }
 
-Future<DropDownSavedValue?> getTabelaPreco(int idVisita) async {
+Future<DropdownSavedValue?> getTabelaPreco(int idVisita) async {
   final Database db = await DatabaseLocal.getDatabase();
 
   final List<Map<String, dynamic>> maps = await db
       .query('VW_VISITA', where: 'ID_VISITA = ?', whereArgs: [idVisita]);
 
   final list = List.generate(maps.length, (i) {
-    final tp = DropDownSavedValue(maps[i]['ID_TABELA_PRECOS'], nome: maps[i]['NOME_TABELA']);
+    final tp = DropdownSavedValue(maps[i]['ID_TABELA_PRECOS'], nome: maps[i]['NOME_TABELA']);
     return tp;
   });
 
@@ -108,7 +110,7 @@ Future<DropDownSavedValue?> getTabelaPreco(int idVisita) async {
 }
 
 Future<void> insertTabelaPreco(
-    final int idVisita, final DropDownSavedValue x) async {
+    final int idVisita, final DropdownSavedValue x) async {
   try {
     final db = await DatabaseLocal.getDatabase();
     await db.insert(

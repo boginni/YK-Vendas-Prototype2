@@ -59,6 +59,32 @@ class Cliente {
 }
 
 class Visita {
+
+  static Visita createObject(Map<String, dynamic> maps){
+    Visita v = Visita();
+
+    v.id = maps["ID_VISITA"];
+    v.idPessoa = maps['ID_PESSOA'];
+    v.nome = maps['NOME'];
+
+    v.logradouro = maps['LOGRADOURO'];
+    v.numero = maps['NUMERO'];
+    v.cep = maps['CEP'];
+    v.bairro = maps['BAIRRO'];
+    v. cidade = maps['CIDADE'];
+    v.uf = maps['UF'];
+    v.estado = maps['ESTADO'];
+
+    v.chegadaConcluida = _bool(maps['CHEGADA_CONCLUIDA']);
+    v.tabelaConcluida = _bool(maps['TABELA_CONCLUIDA']);
+    v.pedidoConcluida = _bool(maps['PEDIDO_CONCLUIDA']);
+    v.vendaConcluida = _bool(maps['VENDA_CONCLUIDA']);
+
+    return v;
+
+  }
+
+
   int id = 0;
   int idPessoa = 0;
   String apelido = "";
@@ -137,4 +163,10 @@ class ChegadaCliente {
   Map<String, Object?> toMap() {
     return {'ID_VISITA': idVisita, 'DATA': DateFormat('dd-MM-yyyy HH:mm:ss').format(chegada)};
   }
+}
+
+
+
+bool _bool(int b) {
+  return b == 1 ? true : false;
 }

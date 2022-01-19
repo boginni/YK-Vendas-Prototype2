@@ -1,17 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:forca_de_vendas/common/tiles/default_tiles.dart';
 import 'package:forca_de_vendas/models/database_local.dart';
+import 'package:forca_de_vendas/models/database_objects/database_fields.dart';
 import 'package:forca_de_vendas/models/database_objects/database_objects.dart';
 import 'package:sqflite/sqflite.dart';
 
-class TelaTotaisPedido extends StatelessWidget {
+class TelaTotaisPedido extends StatefulWidget {
   static const routeName = '/telaTotaisPedido';
 
   const TelaTotaisPedido({Key? key}) : super(key: key);
 
   @override
+  State<StatefulWidget> createState() => TelaTotaisPedidoState();
+}
+
+class TelaTotaisPedidoState extends State<TelaTotaisPedido> {
+  DropdownSavedValue? forma;
+
+  @override
   Widget build(BuildContext context) {
     final int idVisita = ModalRoute.of(context)!.settings.arguments as int;
+
+    saveTotais() async{
+      debugPrint(forma.toString());
+
+      await insertTotais(idVisita, forma!.id);
+
+      Navigator.of(context).pop(context);
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -49,9 +65,15 @@ class TelaTotaisPedido extends StatelessWidget {
                 );
               },
             ),
-            const TileText(
-              title: 'Prazo de Pagamento',
-              value: 'Not Implemented',
+            const Text('Forma de pagamento'),
+            Dropdownsaved(
+              Dropdownsaved.formaPagamento,
+              onChange: (item) {
+                setState(() {
+                  forma = item;
+                });
+              },
+              currentValue: forma,
             ),
             const TileText(
               title: 'Observação da NF',
@@ -61,6 +83,13 @@ class TelaTotaisPedido extends StatelessWidget {
               title: 'Assinatura',
               value: 'Not Implemented',
             ),
+            TextButton(
+              onPressed: forma != null ? () => saveTotais() : null,
+              child: const Text(
+                "Salvar",
+                style: TextStyle(color: Colors.black),
+              ),
+            )
           ],
         ),
       ),
@@ -68,25 +97,16 @@ class TelaTotaisPedido extends StatelessWidget {
   }
 }
 
-class TabelaPreco{
-  final int id;
-
-  TabelaPreco(this.id);
-
-}
-
-
-Future<void> insertTotais(final int idVisita, final TabelaPreco x) async {
+Future<void> insertTotais(
+    final int idVisita, final int idFormaPagamento) async {
   try {
     final db = await DatabaseLocal.getDatabase();
     await db.insert(
-      'CP_VISITA_TABELA',
-      {'ID_VISITA': idVisita, 'ID_TABELA_PRECOS': x.id},
+      'CP_VISITA_VENDA',
+      {'ID_VISITA': idVisita, 'ID_FORMA_PAGAMENTO': idFormaPagamento},
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
-
   } catch (e) {
     debugPrint(e.toString());
   }
 }
-

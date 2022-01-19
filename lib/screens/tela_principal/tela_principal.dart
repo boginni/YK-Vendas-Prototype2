@@ -39,7 +39,7 @@ class TelaPrincipal extends ModdelScreen {
       ),
       drawer: const CustomDrawer(),
       body: FutureBuilder(
-        future: BufferTranslator.getVisitas(rota.id),
+        future: BufferTranslator.getListVisitas(rota.id),
         builder: (BuildContext context, AsyncSnapshot<List<Visita>> snapshot) {
           if (snapshot.hasData) {
             List<Visita> visitas = snapshot.data!;

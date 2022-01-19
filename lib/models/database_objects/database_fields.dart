@@ -4,11 +4,11 @@ import 'package:sqflite/sqflite.dart';
 
 import '../database_local.dart';
 
-class DropDownSavedValue {
+class DropdownSavedValue {
   final int id;
   late final String? nome;
 
-  DropDownSavedValue(this.id, {this.nome});
+  DropdownSavedValue(this.id, {this.nome});
 
   @override
   String toString() {
@@ -17,39 +17,42 @@ class DropDownSavedValue {
 
   @override
   bool operator ==(Object other) =>
-      other is DropDownSavedValue && other.id == id;
+      other is DropdownSavedValue && other.id == id;
 
   @override
   int get hashCode => id.hashCode;
 }
 
-class DropDownSaved extends StatefulWidget {
+class Dropdownsaved extends StatefulWidget {
   static const String tabelaPreco = 'VW_TABELA_PRECO';
+  static const String formaPagamento = 'VW_FORMA_PAGAMENTO';
 
   final String table;
-  DropDownSavedValue? currentValue;
-  Function(DropDownSavedValue? item)? onChange;
+  DropdownSavedValue? currentValue;
+  Function(DropdownSavedValue? item) onChange;
 
-  DropDownSaved(this.table, {Key? key, this.currentValue, this.onChange}) : super(key: key);
+  Dropdownsaved(this.table, {Key? key, this.currentValue, required this.onChange})
+      : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => DropDownSavedState();
+  State<StatefulWidget> createState() => DropdownsavedState();
 }
 
-class DropDownSavedState extends State<DropDownSaved> {
+class DropdownsavedState extends State<Dropdownsaved> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
 
-    Future<List<DropDownSavedValue>> getList() async {
-      List<DropDownSavedValue> list = [];
+    Future<List<DropdownSavedValue>> getList() async {
+      List<DropdownSavedValue> list = [];
       try {
-        final Database db = await DatabaseLocal.getDatabase();
 
-        final List<Map<String, dynamic>> maps = await db.query(widget.table);
+
+
+        final List<Map<String, dynamic>> maps = await DatabaseLocal.query(widget.table, '', []);;
 
         list = List.generate(maps.length, (i) {
-          final tp = DropDownSavedValue(maps[i]['ID'], nome: maps[i]['NOME']);
+          final tp = DropdownSavedValue(maps[i]['ID'], nome: maps[i]['NOME']);
           return tp;
         });
       } catch (e) {
@@ -59,30 +62,28 @@ class DropDownSavedState extends State<DropDownSaved> {
       return list;
     }
 
-    update(final DropDownSavedValue? item) {
+    update(final DropdownSavedValue? item) {
       setState(() {
         widget.currentValue = item;
       });
 
-      widget.onChange!(item);
-
-
+      widget.onChange(item);
     }
 
     return FutureBuilder(
       future: getList(),
       builder: (BuildContext context,
-          AsyncSnapshot<List<DropDownSavedValue>> snapshot) {
+          AsyncSnapshot<List<DropdownSavedValue>> snapshot) {
         if (!snapshot.hasData) {
           return const Text('Carregando');
         }
 
         final list = snapshot.data!;
 
-        return DropdownButton<DropDownSavedValue>(
+        return DropdownButton<DropdownSavedValue>(
           value: widget.currentValue,
-          items: list.map((DropDownSavedValue item) {
-            return DropdownMenuItem<DropDownSavedValue>(
+          items: list.map((DropdownSavedValue item) {
+            return DropdownMenuItem<DropdownSavedValue>(
               value: item,
               child: Text(item.toString()),
             );

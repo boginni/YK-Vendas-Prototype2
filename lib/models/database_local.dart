@@ -6,8 +6,7 @@ import 'package:sqflite/sqflite.dart';
 import 'database_objects/database_objects.dart';
 
 abstract class DatabaseLocal {
-
-  static String getCurrentTime(){
+  static String getCurrentTime() {
     return DateFormat('dd-MM-yyyy HH:mm:ss').format(DateTime.now());
   }
 
@@ -56,15 +55,12 @@ abstract class DatabaseLocal {
         conflictAlgorithm: ConflictAlgorithm.replace,
       );
 
-      // debugPrint(item.toMap().toString());
-
     } catch (e) {
       debugPrint(e.toString());
     }
   }
 
   static Future<void> insertChegadaCliente(ChegadaCliente x) async {
-
     try {
       final db = await getDatabase();
       await db.insert(
@@ -73,12 +69,38 @@ abstract class DatabaseLocal {
         conflictAlgorithm: ConflictAlgorithm.abort,
       );
 
-      // debugPrint(item.toMap().toString());
-
     } catch (e) {
+
       debugPrint(e.toString());
     }
+  }
 
+  static Future<List<Map<String, dynamic>>> query(
+      final String table, final String where, final List<dynamic> whereArgs) async {
+
+    late final List<Map<String, dynamic>> maps;
+
+
+
+
+    final db = await DatabaseLocal.getDatabase();
+
+    try{
+
+      if(where.isEmpty){
+        maps = await db.query(table);
+      } else {
+        maps = await db.query(table, where: where, whereArgs: whereArgs);
+      }
+
+      // onSucces();
+    } catch (e){
+
+      debugPrint(e.toString());
+      // onFail();
+    }
+
+    return maps;
   }
 
 
@@ -94,6 +116,9 @@ class StoredConfig {
 
     await db.update('CONF_USER', {'VALOR': value},
         where: 'ID = ?', whereArgs: [id]);
+
+
+
   }
 
   static Future<String> getConfig(int id) async {
@@ -112,42 +137,39 @@ class StoredConfig {
     r.id = maps[0]['ID'];
     r.nome = maps[0]['NOME'];
 
-    debugPrint(r.id.toString());
 
     return r;
   }
 }
 
 class BufferTranslator {
-  static Future<List<Visita>> getVisitas(int idRota) async {
-    final db = await DatabaseLocal.getDatabase();
-    String where = "ID_ROTA = ?";
-    List<dynamic> whereArgs = [idRota];
 
-    // debugPrint(idRota.toString());
+
+
+  static Future<List<Visita>> getListVisitas(int idRota) async {
 
     final List<Map<String, dynamic>> maps =
-        await db.query('VW_VISITA', where: where, whereArgs: whereArgs);
+      await DatabaseLocal.query('VW_VISITA', 'ID_ROTA = ?', [idRota]);
 
     final visitas = List.generate(maps.length, (i) {
-      Visita v = Visita();
+      Visita v = Visita.createObject(maps[i]);
 
-      v.id = maps[i]["ID_VISITA"];
-      v.idPessoa = maps[i]['ID_PESSOA'];
-      v.nome = maps[i]['NOME'];
-
-      v.logradouro = maps[i]['LOGRADOURO'];
-      v.numero = maps[i]['NUMERO'];
-      v.cep = maps[i]['CEP'];
-      v.bairro = maps[i]['BAIRRO'];
-      v.cidade = maps[i]['CIDADE'];
-      v.uf = maps[i]['UF'];
-      v.estado = maps[i]['ESTADO'];
-
-      v.chegadaConcluida = _bool(maps[i]['CHEGADA_CONCLUIDA']);
-      v.tabelaConcluida = _bool(maps[i]['TABELA_CONCLUIDA']);
-      v.pedidoConcluida = _bool(maps[i]['PEDIDO_CONCLUIDA']);
-      v.vendaConcluida = _bool(maps[i]['VENDA_CONCLUIDA']);
+      // v.id = maps[i]["ID_VISITA"];
+      // v.idPessoa = maps[i]['ID_PESSOA'];
+      // v.nome = maps[i]['NOME'];
+      //
+      // v.logradouro = maps[i]['LOGRADOURO'];
+      // v.numero = maps[i]['NUMERO'];
+      // v.cep = maps[i]['CEP'];
+      // v.bairro = maps[i]['BAIRRO'];
+      // v.cidade = maps[i]['CIDADE'];
+      // v.uf = maps[i]['UF'];
+      // v.estado = maps[i]['ESTADO'];
+      //
+      // v.chegadaConcluida = _bool(maps[i]['CHEGADA_CONCLUIDA']);
+      // v.tabelaConcluida = _bool(maps[i]['TABELA_CONCLUIDA']);
+      // v.pedidoConcluida = _bool(maps[i]['PEDIDO_CONCLUIDA']);
+      // v.vendaConcluida = _bool(maps[i]['VENDA_CONCLUIDA']);
 
       return v;
     });
@@ -155,36 +177,39 @@ class BufferTranslator {
     return visitas;
   }
 
-
   static Future<Visita> getVisita(int idVisita) async {
+
     final db = await DatabaseLocal.getDatabase();
     String where = "ID_VISITA = ?";
     List<dynamic> whereArgs = [idVisita];
 
-    // debugPrint(idRota.toString());
 
     final List<Map<String, dynamic>> maps =
-    await db.query('VW_VISITA', where: where, whereArgs: whereArgs);
+        await db.query('VW_VISITA', where: where, whereArgs: whereArgs);
+
+
+
 
     final visitas = List.generate(maps.length, (i) {
-      Visita v = Visita();
 
-      v.id = maps[i]["ID_VISITA"];
-      v.idPessoa = maps[i]['ID_PESSOA'];
-      v.nome = maps[i]['NOME'];
+      Visita v = Visita.createObject(maps[i]);
 
-      v.logradouro = maps[i]['LOGRADOURO'];
-      v.numero = maps[i]['NUMERO'];
-      v.cep = maps[i]['CEP'];
-      v.bairro = maps[i]['BAIRRO'];
-      v.cidade = maps[i]['CIDADE'];
-      v.uf = maps[i]['UF'];
-      v.estado = maps[i]['ESTADO'];
-
-      v.chegadaConcluida = _bool(maps[i]['CHEGADA_CONCLUIDA']);
-      v.tabelaConcluida = _bool(maps[i]['TABELA_CONCLUIDA']);
-      v.pedidoConcluida = _bool(maps[i]['PEDIDO_CONCLUIDA']);
-      v.vendaConcluida = _bool(maps[i]['VENDA_CONCLUIDA']);
+      // v.id = maps[i]["ID_VISITA"];
+      // v.idPessoa = maps[i]['ID_PESSOA'];
+      // v.nome = maps[i]['NOME'];
+      //
+      // v.logradouro = maps[i]['LOGRADOURO'];
+      // v.numero = maps[i]['NUMERO'];
+      // v.cep = maps[i]['CEP'];
+      // v.bairro = maps[i]['BAIRRO'];
+      // v.cidade = maps[i]['CIDADE'];
+      // v.uf = maps[i]['UF'];
+      // v.estado = maps[i]['ESTADO'];
+      //
+      // v.chegadaConcluida = _bool(maps[i]['CHEGADA_CONCLUIDA']);
+      // v.tabelaConcluida = _bool(maps[i]['TABELA_CONCLUIDA']);
+      // v.pedidoConcluida = _bool(maps[i]['PEDIDO_CONCLUIDA']);
+      // v.vendaConcluida = _bool(maps[i]['VENDA_CONCLUIDA']);
 
       return v;
     });
@@ -193,6 +218,8 @@ class BufferTranslator {
   }
 
   static Future<List<Cliente>> getClientes() async {
+
+
     final db = await DatabaseLocal.getDatabase();
     final List<Map<String, dynamic>> maps = await db.query('CB_PESSOA');
 
@@ -206,6 +233,8 @@ class BufferTranslator {
   }
 
   static Future<List<Rota>> getRotas() async {
+
+
     final db = await DatabaseLocal.getDatabase();
     final List<Map<String, dynamic>> maps = await db.query('CP_ROTAS');
 
@@ -218,6 +247,8 @@ class BufferTranslator {
         return r;
       },
     );
+
+
   }
 
   static Future<List<Graph>> getGraphList() async {
@@ -304,7 +335,6 @@ class BufferTranslator {
     String where = "ID_VISITA = ?";
     List<dynamic> whereArgs = [idVisita];
 
-    // debugPrint(idRota.toString());
 
     final List<Map<String, dynamic>> maps =
         await db.query('VW_TOTAIS_PEDIDO', where: where, whereArgs: whereArgs);
